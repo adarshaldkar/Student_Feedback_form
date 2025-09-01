@@ -287,31 +287,42 @@ const AdminView = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-center">
-          <Loader2 className="mx-auto h-8 w-8 animate-spin text-blue-600" />
-          <p className="mt-2 text-gray-600">Loading admin dashboard...</p>
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-gray-100 flex items-center justify-center p-4">
+        <div className="text-center max-w-sm w-full">
+          <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-8 shadow-lg">
+            <Loader2 className="mx-auto h-12 w-12 animate-spin text-blue-600 mb-4" />
+            <h3 className="text-lg font-semibold text-gray-900 mb-2">Loading Dashboard</h3>
+            <p className="text-sm text-gray-600">Please wait while we load your admin dashboard...</p>
+          </div>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-gray-100">
+      <div className="w-full max-w-7xl mx-auto px-3 sm:px-4 lg:px-6 py-4 sm:py-6 lg:py-8">
         {/* Header */}
-        <Card className="mb-8">
-          <CardHeader>
-            <div className="flex justify-between items-center">
-              <div>
-                <CardTitle className="text-2xl font-bold text-gray-900">
-                  Admin Dashboard
+        <Card className="mb-4 sm:mb-6 lg:mb-8 shadow-lg border-0 bg-white/80 backdrop-blur-sm">
+          <CardHeader className="pb-4">
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+              <div className="flex-1 min-w-0">
+                <CardTitle className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 tracking-tight">
+                  🎓 Admin Dashboard
                 </CardTitle>
-                <p className="text-gray-600">
-                  Welcome, {user?.username} - Manage feedback forms and view submissions
+                <p className="text-sm sm:text-base text-gray-600 mt-1 truncate">
+                  Welcome, <span className="font-medium text-blue-600">{user?.username}</span>
+                </p>
+                <p className="text-xs sm:text-sm text-gray-500 mt-1">
+                  Manage feedback forms and view submissions
                 </p>
               </div>
-              <Button variant="outline" onClick={logout} className="text-red-600 hover:text-red-700">
+              <Button 
+                variant="outline" 
+                onClick={logout} 
+                className="text-red-600 hover:text-red-700 hover:bg-red-50 border-red-200 shrink-0"
+                size="sm"
+              >
                 <LogOut className="h-4 w-4 mr-2" />
                 Logout
               </Button>
@@ -321,8 +332,8 @@ const AdminView = () => {
 
         {/* Alerts */}
         {error && (
-          <Alert variant="destructive" className="mb-4">
-            <AlertDescription>{error}</AlertDescription>
+          <Alert variant="destructive" className="mb-4 border-red-200 bg-red-50">
+            <AlertDescription className="text-red-800">{error}</AlertDescription>
           </Alert>
         )}
 
@@ -332,88 +343,99 @@ const AdminView = () => {
           </Alert>
         )}
 
-        <Tabs defaultValue="create" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-4">
-            <TabsTrigger value="create">Create Form</TabsTrigger>
-            <TabsTrigger value="forms">Manage Forms ({forms.length})</TabsTrigger>
-            <TabsTrigger value="upload">Upload Data</TabsTrigger>
-            <TabsTrigger value="export">Export Data</TabsTrigger>
+        <Tabs defaultValue="create" className="space-y-4 sm:space-y-6">
+          <TabsList className="grid w-full grid-cols-2 sm:grid-cols-4 h-auto p-1 bg-white border shadow-sm">
+            <TabsTrigger value="create" className="text-xs sm:text-sm py-2 px-2 sm:px-4 data-[state=active]:bg-blue-600 data-[state=active]:text-white">Create Form</TabsTrigger>
+            <TabsTrigger value="forms" className="text-xs sm:text-sm py-2 px-2 sm:px-4 data-[state=active]:bg-blue-600 data-[state=active]:text-white">Manage ({forms.length})</TabsTrigger>
+            <TabsTrigger value="upload" className="text-xs sm:text-sm py-2 px-2 sm:px-4 data-[state=active]:bg-blue-600 data-[state=active]:text-white">Upload</TabsTrigger>
+            <TabsTrigger value="export" className="text-xs sm:text-sm py-2 px-2 sm:px-4 data-[state=active]:bg-blue-600 data-[state=active]:text-white">Export</TabsTrigger>
           </TabsList>
 
           {/* Create New Form */}
           <TabsContent value="create">
-            <Card>
-              <CardHeader>
-                <CardTitle>Create New Feedback Form</CardTitle>
+            <Card className="shadow-lg border-0 bg-white/90 backdrop-blur-sm">
+              <CardHeader className="bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-t-lg">
+                <CardTitle className="text-lg sm:text-xl flex items-center gap-2">
+                  ✨ Create New Feedback Form
+                </CardTitle>
               </CardHeader>
-              <CardContent className="space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <Label htmlFor="title">Form Title *</Label>
+              <CardContent className="p-4 sm:p-6 space-y-4 sm:space-y-6">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="title" className="text-sm font-medium text-gray-700">Form Title *</Label>
                     <Input
                       id="title"
                       placeholder="e.g., Mid-Semester Feedback"
                       value={newForm.title}
                       onChange={(e) => setNewForm({...newForm, title: e.target.value})}
                       disabled={submitting}
+                      className="h-10 sm:h-11"
                     />
                   </div>
-                  <div>
-                    <Label htmlFor="department">Department *</Label>
+                  <div className="space-y-2">
+                    <Label htmlFor="department" className="text-sm font-medium text-gray-700">Department *</Label>
                     <Input
                       id="department"
                       placeholder="e.g., ECE, CSE, MECH"
                       value={newForm.department}
                       onChange={(e) => setNewForm({...newForm, department: e.target.value})}
                       disabled={submitting}
+                      className="h-10 sm:h-11"
                     />
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <Label htmlFor="year">Year *</Label>
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="year" className="text-sm font-medium text-gray-700">Year *</Label>
                     <Input
                       id="year"
                       placeholder="e.g., 3rd Year, 4th Year"
                       value={newForm.year}
                       onChange={(e) => setNewForm({...newForm, year: e.target.value})}
                       disabled={submitting}
+                      className="h-10 sm:h-11"
                     />
                   </div>
-                  <div>
-                    <Label htmlFor="section">Section *</Label>
+                  <div className="space-y-2">
+                    <Label htmlFor="section" className="text-sm font-medium text-gray-700">Section *</Label>
                     <Input
                       id="section"
                       placeholder="e.g., A, B, C"
                       value={newForm.section}
                       onChange={(e) => setNewForm({...newForm, section: e.target.value})}
                       disabled={submitting}
+                      className="h-10 sm:h-11"
                     />
                   </div>
                 </div>
 
                 {/* Subjects */}
-                <div>
-                  <Label className="text-lg font-medium">Subjects</Label>
-                  <div className="space-y-2 mt-2">
+                <div className="bg-gray-50 p-4 rounded-lg border">
+                  <Label className="text-lg font-medium text-gray-800 flex items-center gap-2">
+                    📚 Subjects
+                  </Label>
+                  <div className="space-y-3 mt-3">
                     {newForm.subjects.map((subject, index) => (
-                      <div key={index} className="flex gap-2">
-                        <Input
-                          placeholder={`Subject ${index + 1}`}
-                          value={subject}
-                          onChange={(e) => updateSubject(index, e.target.value)}
-                          className="flex-1"
-                          disabled={submitting}
-                        />
+                      <div key={index} className="flex gap-2 items-center">
+                        <div className="flex-1">
+                          <Input
+                            placeholder={`Subject ${index + 1}`}
+                            value={subject}
+                            onChange={(e) => updateSubject(index, e.target.value)}
+                            disabled={submitting}
+                            className="h-10 sm:h-11"
+                          />
+                        </div>
                         <Button
                           type="button"
                           variant="outline"
                           size="icon"
                           onClick={() => removeSubject(index)}
                           disabled={newForm.subjects.length === 1 || submitting}
+                          className="h-10 w-10 sm:h-11 sm:w-11 shrink-0 hover:bg-red-50 hover:border-red-200"
                         >
-                          <Trash2 className="h-4 w-4" />
+                          <Trash2 className="h-4 w-4 text-red-500" />
                         </Button>
                       </div>
                     ))}
@@ -421,7 +443,7 @@ const AdminView = () => {
                       type="button" 
                       variant="outline" 
                       onClick={addSubject} 
-                      className="w-full"
+                      className="w-full h-10 sm:h-11 border-dashed border-2 hover:bg-blue-50 hover:border-blue-300"
                       disabled={submitting}
                     >
                       <Plus className="h-4 w-4 mr-2" />
@@ -431,26 +453,31 @@ const AdminView = () => {
                 </div>
 
                 {/* Evaluation Criteria */}
-                <div>
-                  <Label className="text-lg font-medium">Evaluation Criteria</Label>
-                  <div className="space-y-2 mt-2">
+                <div className="bg-gray-50 p-4 rounded-lg border">
+                  <Label className="text-lg font-medium text-gray-800 flex items-center gap-2">
+                    📋 Evaluation Criteria
+                  </Label>
+                  <div className="space-y-3 mt-3">
                     {newForm.evaluation_criteria.map((criteria, index) => (
-                      <div key={index} className="flex gap-2">
-                        <Input
-                          placeholder={`Evaluation criteria ${index + 1}`}
-                          value={criteria}
-                          onChange={(e) => updateCriteria(index, e.target.value)}
-                          className="flex-1"
-                          disabled={submitting}
-                        />
+                      <div key={index} className="flex gap-2 items-center">
+                        <div className="flex-1">
+                          <Input
+                            placeholder={`Evaluation criteria ${index + 1}`}
+                            value={criteria}
+                            onChange={(e) => updateCriteria(index, e.target.value)}
+                            disabled={submitting}
+                            className="h-10 sm:h-11"
+                          />
+                        </div>
                         <Button
                           type="button"
                           variant="outline"
                           size="icon"
                           onClick={() => removeCriteria(index)}
                           disabled={newForm.evaluation_criteria.length === 1 || submitting}
+                          className="h-10 w-10 sm:h-11 sm:w-11 shrink-0 hover:bg-red-50 hover:border-red-200"
                         >
-                          <Trash2 className="h-4 w-4" />
+                          <Trash2 className="h-4 w-4 text-red-500" />
                         </Button>
                       </div>
                     ))}
@@ -458,7 +485,7 @@ const AdminView = () => {
                       type="button" 
                       variant="outline" 
                       onClick={addCriteria} 
-                      className="w-full"
+                      className="w-full h-10 sm:h-11 border-dashed border-2 hover:bg-blue-50 hover:border-blue-300"
                       disabled={submitting}
                     >
                       <Plus className="h-4 w-4 mr-2" />
@@ -467,14 +494,20 @@ const AdminView = () => {
                   </div>
                 </div>
 
-                <Button onClick={createForm} className="w-full" disabled={submitting}>
+                <Button 
+                  onClick={createForm} 
+                  className="w-full h-12 sm:h-14 text-base font-medium bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 shadow-lg" 
+                  disabled={submitting}
+                >
                   {submitting ? (
                     <>
-                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      <Loader2 className="mr-2 h-5 w-5 animate-spin" />
                       Creating Form...
                     </>
                   ) : (
-                    'Create Feedback Form'
+                    <>
+                      ✨ Create Feedback Form
+                    </>
                   )}
                 </Button>
               </CardContent>
@@ -483,54 +516,61 @@ const AdminView = () => {
 
           {/* Manage Forms */}
           <TabsContent value="forms">
-            <Card>
-              <CardHeader>
-                <CardTitle>Created Forms</CardTitle>
+            <Card className="shadow-lg border-0 bg-white/90 backdrop-blur-sm">
+              <CardHeader className="bg-gradient-to-r from-green-600 to-teal-600 text-white rounded-t-lg">
+                <CardTitle className="text-lg sm:text-xl flex items-center gap-2">
+                  📋 Manage Forms ({forms.length})
+                </CardTitle>
               </CardHeader>
-              <CardContent>
+              <CardContent className="p-4 sm:p-6">
                 {forms.length === 0 ? (
-                  <p className="text-gray-500 text-center py-8">No forms created yet</p>
+                  <div className="text-center py-12">
+                    <div className="text-6xl mb-4">📋</div>
+                    <p className="text-gray-500 text-lg">No forms created yet</p>
+                    <p className="text-gray-400 text-sm mt-2">Create your first feedback form to get started</p>
+                  </div>
                 ) : (
-                  <div className="grid gap-4">
+                  <div className="space-y-4 sm:space-y-6">
                     {forms.map(form => (
-                      <div key={form.id} className="p-4 border rounded-lg bg-white">
-                        <div className="flex justify-between items-start mb-2">
-                          <div>
-                            <h3 className="font-semibold text-lg">{form.title}</h3>
-                            <p className="text-blue-600 font-medium">
+                      <div key={form.id} className="p-4 sm:p-6 border rounded-xl bg-white shadow-sm hover:shadow-md transition-shadow">
+                        <div className="flex flex-col lg:flex-row justify-between items-start gap-4">
+                          <div className="flex-1 min-w-0">
+                            <h3 className="font-semibold text-lg sm:text-xl text-gray-900 truncate">{form.title}</h3>
+                            <p className="text-blue-600 font-medium text-sm sm:text-base mt-1">
                               {form.year} {form.department} - Section {form.section}
                             </p>
-                            <p className="text-sm text-gray-500">
+                            <p className="text-xs sm:text-sm text-gray-500 mt-1">
                               Created: {new Date(form.created_at).toLocaleString()}
                             </p>
                           </div>
-                          <div className="flex items-center gap-2">
-                            <Badge variant="secondary">
+                          <div className="flex items-center gap-2 shrink-0">
+                            <Badge variant="secondary" className="bg-blue-100 text-blue-800 text-xs sm:text-sm">
                               {form.response_count} responses
                             </Badge>
                           </div>
                         </div>
                         
-                        <div className="mb-3">
-                          <p className="text-sm font-medium text-gray-700 mb-1">Subjects:</p>
-                          <div className="flex flex-wrap gap-1">
+                        <div className="mt-4">
+                          <p className="text-sm font-medium text-gray-700 mb-2">Subjects:</p>
+                          <div className="flex flex-wrap gap-1 sm:gap-2">
                             {form.subjects.map((subject, index) => (
-                              <Badge key={index} variant="outline">{subject}</Badge>
+                              <Badge key={index} variant="outline" className="text-xs">{subject}</Badge>
                             ))}
                           </div>
                         </div>
 
-                        <div className="mb-3">
-                          <p className="text-sm font-medium text-gray-700 mb-1">
+                        <div className="mt-4">
+                          <p className="text-sm font-medium text-gray-700 mb-2">
                             Evaluation Criteria: {form.evaluation_criteria.length} items
                           </p>
                         </div>
 
-                        <div className="flex gap-2 flex-wrap">
+                        <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 mt-4">
                           <Button 
                             variant="outline" 
                             size="sm"
                             onClick={() => copyToClipboard(form.shareable_link)}
+                            className="flex-1 sm:flex-none hover:bg-blue-50 hover:border-blue-300"
                           >
                             <Copy className="h-4 w-4 mr-1" />
                             Copy Link
@@ -540,42 +580,54 @@ const AdminView = () => {
                             size="sm"
                             onClick={() => exportFormData(form.id)}
                             disabled={form.response_count === 0}
+                            className="flex-1 sm:flex-none hover:bg-green-50 hover:border-green-300 disabled:opacity-50"
                           >
                             <Download className="h-4 w-4 mr-1" />
-                            Export Data ({form.response_count})
+                            Export ({form.response_count})
                           </Button>
                         </div>
                       </div>
                     ))}
                   </div>
-                )}
+                )}}
               </CardContent>
             </Card>
           </TabsContent>
 
           {/* Upload Data */}
           <TabsContent value="upload">
-            <Card>
-              <CardHeader>
-                <CardTitle>Upload Student Feedback Files</CardTitle>
+            <Card className="shadow-lg border-0 bg-white/90 backdrop-blur-sm">
+              <CardHeader className="bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-t-lg">
+                <CardTitle className="text-lg sm:text-xl flex items-center gap-2">
+                  📄 Upload Student Feedback Files
+                </CardTitle>
               </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  <div>
-                    <Label htmlFor="fileUpload">Select Excel File</Label>
+              <CardContent className="p-4 sm:p-6">
+                <div className="space-y-4 sm:space-y-6">
+                  <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
+                    <h4 className="font-medium text-blue-900 mb-2">Upload Instructions</h4>
+                    <ul className="text-sm text-blue-800 space-y-1">
+                      <li>• Only Excel files (.xlsx, .xls) are supported</li>
+                      <li>• Ensure your file contains valid feedback data</li>
+                      <li>• File will be processed automatically after upload</li>
+                    </ul>
+                  </div>
+                  
+                  <div className="space-y-3">
+                    <Label htmlFor="fileUpload" className="text-sm font-medium text-gray-700">Select Excel File</Label>
                     <div className="mt-2">
                       <input
                         id="fileUpload"
                         type="file"
                         accept=".xlsx,.xls"
                         onChange={handleFileUpload}
-                        className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+                        className="block w-full text-sm text-gray-500 file:mr-4 file:py-3 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 file:cursor-pointer cursor-pointer"
                       />
                     </div>
                   </div>
                   
-                  <Button variant="outline" className="w-full">
-                    <Upload className="h-4 w-4 mr-2" />
+                  <Button variant="outline" className="w-full h-12 border-dashed border-2 hover:bg-purple-50 hover:border-purple-300">
+                    <Upload className="h-5 w-5 mr-2" />
                     Upload Feedback File
                   </Button>
                 </div>
@@ -585,25 +637,38 @@ const AdminView = () => {
 
           {/* Export Data */}
           <TabsContent value="export">
-            <Card>
-              <CardHeader>
-                <CardTitle>Export All Feedback Data</CardTitle>
+            <Card className="shadow-lg border-0 bg-white/90 backdrop-blur-sm">
+              <CardHeader className="bg-gradient-to-r from-orange-600 to-red-600 text-white rounded-t-lg">
+                <CardTitle className="text-lg sm:text-xl flex items-center gap-2">
+                  📁 Export All Feedback Data
+                </CardTitle>
               </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  <p className="text-gray-600">
-                    Export feedback data for individual forms using the "Export Data" button in the Manage Forms section.
-                  </p>
-                  
-                  <div className="bg-blue-50 p-4 rounded-lg">
-                    <p className="text-sm text-blue-800">
-                      <strong>Total Forms:</strong> {forms.length}<br />
-                      <strong>Total Responses:</strong> {forms.reduce((total, form) => total + form.response_count, 0)}
+              <CardContent className="p-4 sm:p-6">
+                <div className="space-y-4 sm:space-y-6">
+                  <div className="bg-gray-50 p-4 rounded-lg border">
+                    <p className="text-gray-700 text-sm sm:text-base">
+                      Export feedback data for individual forms using the "Export Data" button in the Manage Forms section.
                     </p>
                   </div>
+                  
+                  <div className="bg-gradient-to-r from-blue-50 to-purple-50 p-4 sm:p-6 rounded-lg border border-blue-200">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div className="text-center">
+                        <div className="text-2xl sm:text-3xl font-bold text-blue-600">{forms.length}</div>
+                        <p className="text-sm text-gray-600">Total Forms</p>
+                      </div>
+                      <div className="text-center">
+                        <div className="text-2xl sm:text-3xl font-bold text-purple-600">
+                          {forms.reduce((total, form) => total + form.response_count, 0)}
+                        </div>
+                        <p className="text-sm text-gray-600">Total Responses</p>
+                      </div>
+                    </div>
+                  </div>
 
-                  <div className="text-center text-gray-500 py-8">
-                    Use the individual export buttons in the "Manage Forms" tab to export data per section.
+                  <div className="text-center py-6">
+                    <div className="text-4xl mb-4">📁</div>
+                    <p className="text-gray-500 text-sm sm:text-base">Use the individual export buttons in the "Manage Forms" tab to export data per section.</p>
                   </div>
                 </div>
               </CardContent>

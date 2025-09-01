@@ -83,4 +83,10 @@ code {
   body {
     @apply bg-background text-foreground;
     }
+  html, body {
+    @apply overflow-x-hidden;
+    }
+  .App {
+    @apply min-h-screen w-full max-w-full;
+    }
 }

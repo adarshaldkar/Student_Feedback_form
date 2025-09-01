@@ -12,11 +12,12 @@ import Register from "./components/Register";
 
 function App() {
   return (
-    <div className="App">
+    <div className="App min-h-screen bg-gray-50 overflow-x-hidden">
       <AuthProvider>
         <HashRouter>
           <Navigation />
-          <Routes>
+          <main className="flex-1">
+            <Routes>
             {/* Public Routes */}
             <Route path="/" element={<HomePage />} />
             <Route path="/student-login" element={<Login role="student" />} />
@@ -60,7 +61,8 @@ function App() {
                 </div>
               }
             />
-          </Routes>
+            </Routes>
+          </main>
         </HashRouter>
       </AuthProvider>
     </div>
