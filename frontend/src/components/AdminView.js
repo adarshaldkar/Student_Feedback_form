@@ -297,8 +297,21 @@ const AdminView = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="max-w-6xl mx-auto px-3 sm:px-4 lg:px-6 py-4 sm:py-6 lg:py-8">
+    <div className="min-h-screen bg-gray-50" style={{
+      width: '100%',
+      maxWidth: '100%', 
+      overflowX: 'hidden',
+      boxSizing: 'border-box'
+    }}>
+      <div className="max-w-6xl mx-auto px-3 sm:px-4 lg:px-6 py-4 sm:py-6 lg:py-8" style={{
+        width: '100%',
+        maxWidth: '72rem',
+        margin: '0 auto',
+        paddingLeft: '0.75rem',
+        paddingRight: '0.75rem',
+        paddingTop: '1rem',
+        paddingBottom: '1rem'
+      }}>
         {/* Header */}
         <Card className="mb-6 sm:mb-8">
           <CardHeader>
@@ -338,17 +351,59 @@ const AdminView = () => {
         )}
 
         <Tabs defaultValue="create" className="space-y-4 sm:space-y-6">
-          <TabsList className="grid w-full grid-cols-2 lg:grid-cols-4 gap-2 p-2 h-auto">
-            <TabsTrigger value="create" className="text-xs sm:text-sm lg:text-base font-medium px-2 sm:px-4 py-2 whitespace-nowrap">
+          <TabsList className="grid w-full grid-cols-2 lg:grid-cols-4 gap-2 p-2 h-auto" style={{
+            display: 'grid',
+            width: '100%',
+            gridTemplateColumns: 'repeat(2, 1fr)',
+            gap: '0.5rem',
+            padding: '0.5rem',
+            height: 'auto',
+            '@media (min-width: 1024px)': {
+              gridTemplateColumns: 'repeat(4, 1fr)'
+            }
+          }}>
+            <TabsTrigger value="create" className="text-xs sm:text-sm lg:text-base font-medium px-2 sm:px-4 py-2 whitespace-nowrap" style={{
+              fontSize: '0.75rem',
+              fontWeight: '500',
+              paddingLeft: '0.5rem',
+              paddingRight: '0.5rem',
+              paddingTop: '0.5rem',
+              paddingBottom: '0.5rem',
+              whiteSpace: 'nowrap'
+            }}>
               Create Form
             </TabsTrigger>
-            <TabsTrigger value="forms" className="text-xs sm:text-sm lg:text-base font-medium px-2 sm:px-4 py-2 whitespace-nowrap">
+            <TabsTrigger value="forms" className="text-xs sm:text-sm lg:text-base font-medium px-2 sm:px-4 py-2 whitespace-nowrap" style={{
+              fontSize: '0.75rem',
+              fontWeight: '500',
+              paddingLeft: '0.5rem',
+              paddingRight: '0.5rem',
+              paddingTop: '0.5rem',
+              paddingBottom: '0.5rem',
+              whiteSpace: 'nowrap'
+            }}>
               Manage ({forms.length})
             </TabsTrigger>
-            <TabsTrigger value="upload" className="text-xs sm:text-sm lg:text-base font-medium px-2 sm:px-4 py-2 whitespace-nowrap">
+            <TabsTrigger value="upload" className="text-xs sm:text-sm lg:text-base font-medium px-2 sm:px-4 py-2 whitespace-nowrap" style={{
+              fontSize: '0.75rem',
+              fontWeight: '500',
+              paddingLeft: '0.5rem',
+              paddingRight: '0.5rem',
+              paddingTop: '0.5rem',
+              paddingBottom: '0.5rem',
+              whiteSpace: 'nowrap'
+            }}>
               Upload Data
             </TabsTrigger>
-            <TabsTrigger value="export" className="text-xs sm:text-sm lg:text-base font-medium px-2 sm:px-4 py-2 whitespace-nowrap">
+            <TabsTrigger value="export" className="text-xs sm:text-sm lg:text-base font-medium px-2 sm:px-4 py-2 whitespace-nowrap" style={{
+              fontSize: '0.75rem',
+              fontWeight: '500',
+              paddingLeft: '0.5rem',
+              paddingRight: '0.5rem',
+              paddingTop: '0.5rem',
+              paddingBottom: '0.5rem',
+              whiteSpace: 'nowrap'
+            }}>
               Export Data
             </TabsTrigger>
           </TabsList>

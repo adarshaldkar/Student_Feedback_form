@@ -35,6 +35,53 @@
             * {
                 box-sizing: border-box !important;
             }
+            /* DEPLOYMENT-SAFE Responsive Tabs Fix */
+            [role="tablist"] {
+                display: grid !important;
+                width: 100% !important;
+                grid-template-columns: repeat(2, 1fr) !important;
+                gap: 0.5rem !important;
+                padding: 0.5rem !important;
+            }
+            @media (min-width: 1024px) {
+                [role="tablist"] {
+                    grid-template-columns: repeat(4, 1fr) !important;
+                }
+            }
+            [role="tab"] {
+                font-size: 0.75rem !important;
+                font-weight: 500 !important;
+                padding: 0.5rem !important;
+                white-space: nowrap !important;
+                text-align: center !important;
+                min-width: 0 !important;
+                overflow: hidden !important;
+                text-overflow: ellipsis !important;
+            }
+            @media (min-width: 640px) {
+                [role="tab"] {
+                    font-size: 0.875rem !important;
+                    padding-left: 1rem !important;
+                    padding-right: 1rem !important;
+                }
+            }
+            @media (min-width: 1024px) {
+                [role="tab"] {
+                    font-size: 1rem !important;
+                }
+            }
+            /* Force responsive grid behavior */
+            .grid-cols-2 {
+                grid-template-columns: repeat(2, 1fr) !important;
+            }
+            @media (min-width: 1024px) {
+                .lg\:grid-cols-4 {
+                    grid-template-columns: repeat(4, 1fr) !important;
+                }
+                .lg\:grid-cols-2 {
+                    grid-template-columns: repeat(2, 1fr) !important;
+                }
+            }
         </style>
     </head>
     <body>

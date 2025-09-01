@@ -7,57 +7,36 @@ module.exports = {
     "./src/**/*.html",
     "./src/**/*.{js,ts,jsx,tsx}"
   ],
-  // Safelist important responsive classes to prevent purging
+  // Safelist ALL responsive classes to prevent purging in production
   safelist: [
-    // Base responsive classes
-    'sm:text-base',
-    'sm:text-sm', 
-    'sm:px-4',
-    'sm:py-2',
-    'sm:px-6',
-    'sm:space-y-2',
-    'sm:mb-8',
-    'sm:py-6',
-    'lg:hidden',
-    'lg:block',
-    'lg:grid-cols-2',
-    'lg:text-base',
-    'lg:py-8',
-    'lg:px-6',
-    'xl:px-8',
-    'md:flex',
-    'md:hidden',
-    // Critical layout classes
-    'overflow-x-hidden',
-    'max-w-full',
-    'w-full',
-    'min-h-screen',
-    'container-responsive',
-    'table-responsive',
-    // Mobile-specific classes
-    'sm:text-xs',
-    'sm:h-11',
-    'sm:mb-8',
-    'md:block',
-    'lg:py-8',
-    // Card and table responsive classes
-    'border-collapse',
-    'min-w-[1000px]',
-    'max-w-[1400px]',
-    'grid-cols-1',
-    'space-y-4',
-    'space-y-3',
-    // Button and form responsive classes
-    'h-10',
-    'h-11',
-    'w-16',
-    'h-8',
-    'text-xs',
-    'justify-start',
-    'justify-between',
-    'items-center',
-    'flex-1',
-    'min-w-0'
+    // Responsive prefix patterns - simplified to work correctly
+    'sm:text-base', 'sm:text-sm', 'sm:text-xs', 'sm:px-4', 'sm:py-2', 'sm:px-6', 'sm:space-y-2',
+    'sm:mb-8', 'sm:py-6', 'sm:h-11', 'sm:block', 'sm:hidden', 'sm:flex', 'sm:grid', 'sm:px-2',
+    'md:hidden', 'md:block', 'md:flex', 'md:grid', 'md:text-base', 'md:px-4', 'md:py-2',
+    'lg:hidden', 'lg:block', 'lg:grid-cols-2', 'lg:text-base', 'lg:py-8', 'lg:px-6', 'lg:flex',
+    'lg:grid-cols-4', 'xl:px-8', 'xl:block', 'xl:flex', 'xl:hidden',
+    // Layout and spacing
+    'overflow-x-hidden', 'max-w-full', 'w-full', 'min-h-screen', 'container-responsive',
+    'table-responsive', 'border-collapse', 'min-w-[1000px]', 'max-w-[1400px]',
+    'grid-cols-1', 'grid-cols-2', 'space-y-4', 'space-y-3', 'space-y-2',
+    // Buttons and forms
+    'h-10', 'h-11', 'w-16', 'h-8', 'justify-start', 'justify-between', 'items-center',
+    'flex-1', 'min-w-0', 'gap-2', 'gap-3', 'gap-4',
+    // Navigation specific
+    'sticky', 'top-0', 'z-50', 'shrink-0', 'truncate',
+    // Card and content
+    'rounded', 'rounded-lg', 'shadow', 'shadow-lg', 'border', 'bg-white', 'bg-gray-50',
+    // Typography
+    'font-bold', 'font-medium', 'text-gray-900', 'text-gray-600', 'text-blue-600',
+    // Responsive spacing
+    'sm:space-x-2', 'sm:space-x-3', 'sm:space-x-4', 'sm:gap-2', 'sm:gap-3', 'sm:gap-4',
+    'md:space-x-2', 'md:space-x-3', 'md:space-x-4', 'md:gap-2', 'md:gap-3', 'md:gap-4',
+    'lg:space-x-2', 'lg:space-x-3', 'lg:space-x-4', 'lg:gap-2', 'lg:gap-3', 'lg:gap-4',
+    'xl:space-x-2', 'xl:space-x-3', 'xl:space-x-4', 'xl:gap-2', 'xl:gap-3', 'xl:gap-4',
+    // Flex responsive
+    'flex-col', 'flex-row', 'sm:flex-row', 'lg:flex-row',
+    // Critical tab classes
+    'grid', 'h-auto', 'whitespace-nowrap'
   ],
   theme: {
   	extend: {
