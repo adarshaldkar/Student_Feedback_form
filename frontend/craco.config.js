@@ -13,6 +13,20 @@ module.exports = {
     },
     configure: (webpackConfig) => {
       
+      // Ensure proper CSS handling for production builds
+      if (process.env.NODE_ENV === 'production') {
+        // Ensure CSS optimization doesn't break responsive classes
+        const miniCssExtractPlugin = webpackConfig.plugins.find(plugin => 
+          plugin.constructor.name === 'MiniCssExtractPlugin'
+        );
+        if (miniCssExtractPlugin) {
+          miniCssExtractPlugin.options = {
+            ...miniCssExtractPlugin.options,
+            ignoreOrder: true, // Ignore CSS order warnings that might affect responsive styles
+          };
+        }
+      }
+      
       // Disable hot reload completely if environment variable is set
       if (config.disableHotReload) {
         // Remove hot reload related plugins

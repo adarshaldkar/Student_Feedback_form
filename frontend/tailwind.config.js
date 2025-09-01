@@ -3,7 +3,61 @@ module.exports = {
     darkMode: ["class"],
     content: [
     "./src/**/*.{js,jsx,ts,tsx}",
-    "./public/index.html"
+    "./public/index.html",
+    "./src/**/*.html",
+    "./src/**/*.{js,ts,jsx,tsx}"
+  ],
+  // Safelist important responsive classes to prevent purging
+  safelist: [
+    // Base responsive classes
+    'sm:text-base',
+    'sm:text-sm', 
+    'sm:px-4',
+    'sm:py-2',
+    'sm:px-6',
+    'sm:space-y-2',
+    'sm:mb-8',
+    'sm:py-6',
+    'lg:hidden',
+    'lg:block',
+    'lg:grid-cols-2',
+    'lg:text-base',
+    'lg:py-8',
+    'lg:px-6',
+    'xl:px-8',
+    'md:flex',
+    'md:hidden',
+    // Critical layout classes
+    'overflow-x-hidden',
+    'max-w-full',
+    'w-full',
+    'min-h-screen',
+    'container-responsive',
+    'table-responsive',
+    // Mobile-specific classes
+    'sm:text-xs',
+    'sm:h-11',
+    'sm:mb-8',
+    'md:block',
+    'lg:py-8',
+    // Card and table responsive classes
+    'border-collapse',
+    'min-w-[1000px]',
+    'max-w-[1400px]',
+    'grid-cols-1',
+    'space-y-4',
+    'space-y-3',
+    // Button and form responsive classes
+    'h-10',
+    'h-11',
+    'w-16',
+    'h-8',
+    'text-xs',
+    'justify-start',
+    'justify-between',
+    'items-center',
+    'flex-1',
+    'min-w-0'
   ],
   theme: {
   	extend: {

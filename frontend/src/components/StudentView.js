@@ -237,9 +237,9 @@ const StudentView = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-4 sm:py-6 lg:py-8">
-      <div className="max-w-[1400px] mx-auto px-3 sm:px-4 lg:px-6 xl:px-8">
-        <Card className="mb-6 sm:mb-8">
+    <div className="min-h-screen bg-gray-50 py-4 sm:py-6 lg:py-8" style={{width: '100%', maxWidth: '100%', overflowX: 'hidden'}}>
+      <div className="max-w-[1400px] mx-auto px-3 sm:px-4 lg:px-6 xl:px-8 container-responsive" style={{width: '100%', maxWidth: '100%'}}>
+        <Card className="mb-6 sm:mb-8" style={{width: '100%', maxWidth: '100%'}}>
           <CardHeader className="pb-3 sm:pb-4">
             <CardTitle className="text-xl sm:text-2xl font-bold text-gray-900">
               Teacher Feedback Collection System
@@ -346,10 +346,10 @@ const StudentView = () => {
                 ))}
               </div>
 
-              {/* Desktop View - Table Layout */}
-              <div className="hidden lg:block">
-                <div className="overflow-x-auto -mx-3 sm:-mx-4 lg:-mx-6 xl:-mx-8 px-3 sm:px-4 lg:px-6 xl:px-8">
-                  <div className="min-w-[1000px]">
+            {/* Desktop View - Table Layout */}
+              <div className="hidden lg:block" style={{width: '100%', overflowX: 'auto'}}>
+                <div className="overflow-x-auto table-responsive -mx-3 sm:-mx-4 lg:-mx-6 xl:-mx-8 px-3 sm:px-4 lg:px-6 xl:px-8" style={{WebkitOverflowScrolling: 'touch'}}>
+                  <div className="min-w-[1000px]" style={{width: '100%'}}>
                     <table className="w-full border-collapse">
                       <thead>
                         <tr>
