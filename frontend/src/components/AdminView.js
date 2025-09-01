@@ -142,7 +142,7 @@ const AdminView = () => {
         evaluation_criteria: ['']
       });
 
-      setSuccess(`Form created successfully! Share this link: ${response.data.shareable_link}`);
+      setSuccess(`Form created successfully! Share this link: ${window.location.origin}/#/student/${response.data.id}`);
       
       // Refresh forms list
       await fetchForms();
@@ -156,7 +156,12 @@ const AdminView = () => {
   };
 
   const copyToClipboard = (text) => {
-    navigator.clipboard.writeText(text).then(() => {
+    // Fix shareable link to use current domain instead of localhost
+    const currentDomain = window.location.origin;
+    const formId = text.split('/').pop(); // Extract form ID from the URL
+    const correctedUrl = `${currentDomain}/#/student/${formId}`;
+    
+    navigator.clipboard.writeText(correctedUrl).then(() => {
       setSuccess('Link copied to clipboard!');
       setTimeout(() => setSuccess(''), 3000);
     });

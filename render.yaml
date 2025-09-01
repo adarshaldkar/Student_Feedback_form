@@ -3,8 +3,8 @@ services:
     name: students-feedback-backend
     env: node
     plan: free
-    buildCommand: npm install && npm run build
-    startCommand: npm start
+    buildCommand: npm ci && npm run build
+    startCommand: npm run start
     rootDir: backend
     envVars:
       - key: NODE_ENV
