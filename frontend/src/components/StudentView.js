@@ -17,6 +17,7 @@ import {
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 import { Alert, AlertDescription } from './ui/alert';
 import { Loader2, FileDown } from 'lucide-react';
+import { useToast } from '../hooks/use-toast';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || 'https://students-feedback-system-3.onrender.com';
 const API = `${BACKEND_URL}/api`;
@@ -24,6 +25,7 @@ const API = `${BACKEND_URL}/api`;
 const StudentView = () => {
   const { formId } = useParams();
   const navigate = useNavigate();
+  const { toast } = useToast();
   const [formData, setFormData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
@@ -116,12 +118,18 @@ const StudentView = () => {
       // Export to Excel
       exportToExcel(feedbackData);
 
-      setSuccess('Feedback submitted successfully! Excel file has been downloaded.');
+      // Show success toast
+      toast({
+        title: "Success!",
+        description: "Feedback submitted successfully!",
+        variant: "default",
+      });
       
       // Reset form
       setStudentId('');
       setStudentName('');
       setComments('');
+      setSuccess(''); // Clear any existing success message
       const initialRatings = {};
       formData.subjects.forEach(subject => {
         initialRatings[subject] = {};
@@ -188,9 +196,9 @@ const StudentView = () => {
     const worksheet = XLSX.utils.aoa_to_sheet(worksheetData);
     XLSX.utils.book_append_sheet(workbook, worksheet, 'Feedback');
 
-    // Download file
-    const fileName = `Feedback_${formData.year}_${formData.department}_${formData.section}_${feedbackData.student_id}.xlsx`;
-    XLSX.writeFile(workbook, fileName);
+    // // Download file
+    // const fileName = `Feedback_${formData.year}_${formData.department}_${formData.section}_${feedbackData.student_id}.xlsx`;
+    // XLSX.writeFile(workbook, fileName);
   };
 
   const getRatingColor = (value) => {
@@ -229,38 +237,32 @@ const StudentView = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
-      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
-        <Card className="mb-8">
-          <CardHeader className="pb-4">
-            <CardTitle className="text-2xl font-bold text-gray-900">
+    <div className="min-h-screen bg-gray-50 py-4 sm:py-6 lg:py-8">
+      <div className="max-w-[1400px] mx-auto px-3 sm:px-4 lg:px-6 xl:px-8">
+        <Card className="mb-6 sm:mb-8">
+          <CardHeader className="pb-3 sm:pb-4">
+            <CardTitle className="text-xl sm:text-2xl font-bold text-gray-900">
               Teacher Feedback Collection System
             </CardTitle>
-            <div className="space-y-1">
-              <p className="text-gray-600">Submit your feedback for all subjects</p>
+            <div className="space-y-1 sm:space-y-2">
+              <p className="text-sm sm:text-base text-gray-600">Submit your feedback for all subjects</p>
               {formData && (
-                <div className="bg-blue-50 p-3 rounded-lg">
-                  <p className="text-blue-900 font-medium">
+                <div className="bg-blue-50 p-2 sm:p-3 rounded-lg">
+                  <p className="text-sm sm:text-base text-blue-900 font-medium">
                     {formData.title} - {formData.year} {formData.department} - Section {formData.section}
                   </p>
                 </div>
               )}
             </div>
           </CardHeader>
-          <CardContent>
+          <CardContent className="px-3 sm:px-6">
             {error && (
               <Alert variant="destructive" className="mb-4">
                 <AlertDescription>{error}</AlertDescription>
               </Alert>
             )}
 
-            {success && (
-              <Alert className="mb-4 border-green-200 bg-green-50">
-                <AlertDescription className="text-green-800">{success}</AlertDescription>
-              </Alert>
-            )}
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 sm:gap-4 mb-4 sm:mb-6">
               <div>
                 <Label htmlFor="studentId" className="text-sm font-medium text-gray-700 mb-2 block">
                   Student ID / Roll Number (Required) *
@@ -272,6 +274,7 @@ const StudentView = () => {
                   value={studentId}
                   onChange={(e) => setStudentId(e.target.value)}
                   disabled={submitting}
+                  className="h-10 sm:h-11"
                 />
               </div>
               <div>
@@ -285,70 +288,125 @@ const StudentView = () => {
                   value={studentName}
                   onChange={(e) => setStudentName(e.target.value)}
                   disabled={submitting}
+                  className="h-10 sm:h-11"
                 />
               </div>
             </div>
 
             {/* Feedback Matrix Table */}
-            <div className="mb-8">
-              <div className="overflow-x-auto">
-                <div className="min-w-[1200px]">
-                  <table className="w-full border-collapse">
-                    <thead>
-                      <tr>
-                        <th className="sticky left-0 bg-gray-100 p-3 text-left font-medium text-gray-700 border border-gray-300 w-80">
-                          Evaluation Criteria
-                        </th>
-                        {formData?.subjects.map((subject) => (
-                          <th key={subject} className="p-3 text-center font-medium text-gray-700 border border-gray-300 min-w-40">
-                            {subject}
-                          </th>
-                        ))}
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {formData?.evaluation_criteria.map((criteria) => (
-                        <tr key={criteria} className="hover:bg-gray-50">
-                          <td className="sticky left-0 bg-white p-3 text-sm text-gray-900 border border-gray-300 font-medium">
+            <div className="mb-6 sm:mb-8">
+              {/* Mobile View - Card Layout */}
+              <div className="block lg:hidden space-y-4">
+                {formData?.subjects.map((subject) => (
+                  <Card key={subject} className="border border-gray-300">
+                    <CardHeader className="pb-3">
+                      <CardTitle className="text-lg font-medium text-gray-700 text-center">
+                        {subject}
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent className="space-y-3">
+                      {formData.evaluation_criteria.map((criteria) => (
+                        <div key={`${subject}-${criteria}`} className="flex items-center justify-between p-2 border border-gray-200 rounded">
+                          <span className="text-sm font-medium text-gray-900 flex-1">
                             {criteria}
+                          </span>
+                          <div className="ml-3">
+                            <Select
+                              value={ratings[subject]?.[criteria]?.toString() || '5'}
+                              onValueChange={(value) => handleRatingChange(subject, criteria, value)}
+                              disabled={submitting}
+                            >
+                              <SelectTrigger className={`w-16 h-8 text-white font-medium ${getRatingColor(parseInt(ratings[subject]?.[criteria] || 5))}`}>
+                                <SelectValue />
+                              </SelectTrigger>
+                              <SelectContent>
+                                {ratingScale.map(scale => (
+                                  <SelectItem key={scale.value} value={scale.value.toString()}>
+                                    {scale.value} - {scale.label}
+                                  </SelectItem>
+                                ))}
+                              </SelectContent>
+                            </Select>
+                          </div>
+                        </div>
+                      ))}
+                      {/* Average for this subject */}
+                      <div className="bg-blue-50 p-2 rounded border border-blue-200">
+                        <div className="flex items-center justify-between">
+                          <span className="text-sm font-bold text-gray-900">
+                            Your Average Rating
+                          </span>
+                          <span className="text-lg font-bold text-blue-600">
+                            {calculateAverage(subject)}
+                          </span>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+
+              {/* Desktop View - Table Layout */}
+              <div className="hidden lg:block">
+                <div className="overflow-x-auto -mx-3 sm:-mx-4 lg:-mx-6 xl:-mx-8 px-3 sm:px-4 lg:px-6 xl:px-8">
+                  <div className="min-w-[1000px]">
+                    <table className="w-full border-collapse">
+                      <thead>
+                        <tr>
+                          <th className="sticky left-0 bg-gray-100 p-3 text-left font-medium text-gray-700 border border-gray-300 w-64">
+                            Evaluation Criteria
+                          </th>
+                          {formData?.subjects.map((subject) => (
+                            <th key={subject} className="p-3 text-center font-medium text-gray-700 border border-gray-300 min-w-32">
+                              {subject}
+                            </th>
+                          ))}
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {formData?.evaluation_criteria.map((criteria) => (
+                          <tr key={criteria} className="hover:bg-gray-50">
+                            <td className="sticky left-0 bg-white p-3 text-sm text-gray-900 border border-gray-300 font-medium">
+                              {criteria}
+                            </td>
+                            {formData.subjects.map((subject) => (
+                              <td key={`${criteria}-${subject}`} className="p-3 border border-gray-300 text-center">
+                                <Select
+                                  value={ratings[subject]?.[criteria]?.toString() || '5'}
+                                  onValueChange={(value) => handleRatingChange(subject, criteria, value)}
+                                  disabled={submitting}
+                                >
+                                  <SelectTrigger className={`w-16 h-8 mx-auto text-white font-medium ${getRatingColor(parseInt(ratings[subject]?.[criteria] || 5))}`}>
+                                    <SelectValue />
+                                  </SelectTrigger>
+                                  <SelectContent>
+                                    {ratingScale.map(scale => (
+                                      <SelectItem key={scale.value} value={scale.value.toString()}>
+                                        {scale.value} - {scale.label}
+                                      </SelectItem>
+                                    ))}
+                                  </SelectContent>
+                                </Select>
+                              </td>
+                            ))}
+                          </tr>
+                        ))}
+                        {/* Average Row */}
+                        <tr className="bg-blue-50">
+                          <td className="sticky left-0 bg-blue-100 p-3 text-sm font-bold text-gray-900 border border-gray-300">
+                            Your Average Rating
                           </td>
-                          {formData.subjects.map((subject) => (
-                            <td key={`${criteria}-${subject}`} className="p-3 border border-gray-300 text-center">
-                              <Select
-                                value={ratings[subject]?.[criteria]?.toString() || '5'}
-                                onValueChange={(value) => handleRatingChange(subject, criteria, value)}
-                                disabled={submitting}
-                              >
-                                <SelectTrigger className={`w-16 h-8 mx-auto text-white font-medium ${getRatingColor(parseInt(ratings[subject]?.[criteria] || 5))}`}>
-                                  <SelectValue />
-                                </SelectTrigger>
-                                <SelectContent>
-                                  {ratingScale.map(scale => (
-                                    <SelectItem key={scale.value} value={scale.value.toString()}>
-                                      {scale.value} - {scale.label}
-                                    </SelectItem>
-                                  ))}
-                                </SelectContent>
-                              </Select>
+                          {formData?.subjects.map(subject => (
+                            <td key={`avg-${subject}`} className="p-3 border border-gray-300 text-center">
+                              <span className="text-lg font-bold text-blue-600">
+                                {calculateAverage(subject)}
+                              </span>
                             </td>
                           ))}
                         </tr>
-                      ))}
-                      {/* Average Row */}
-                      <tr className="bg-blue-50">
-                        <td className="sticky left-0 bg-blue-100 p-3 text-sm font-bold text-gray-900 border border-gray-300">
-                          Your Average Rating
-                        </td>
-                        {formData?.subjects.map(subject => (
-                          <td key={`avg-${subject}`} className="p-3 border border-gray-300 text-center">
-                            <span className="text-lg font-bold text-blue-600">
-                              {calculateAverage(subject)}
-                            </span>
-                          </td>
-                        ))}
-                      </tr>
-                    </tbody>
-                  </table>
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
               </div>
             </div>
