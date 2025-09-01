@@ -19,7 +19,7 @@ router.post('/', authenticateToken, requireAdmin, async (req: AuthenticatedReque
     const formId = uuidv4();
 
     // Generate shareable link
-    const baseUrl = process.env.FRONTEND_URL || 'http://localhost:3000';
+    const baseUrl = process.env.FRONTEND_URL;
     const shareableLink = `${baseUrl}/#/student/${formId}`;
 
     const form = new FeedbackForm({
