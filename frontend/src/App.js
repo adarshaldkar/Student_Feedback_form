@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./App.css";
 import { HashRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider } from "./contexts/AuthContext";
@@ -12,6 +12,16 @@ import Register from "./components/Register";
 import { Toaster } from "./components/ui/toaster";
 
 function App() {
+  // Ensure correct title is always set
+  useEffect(() => {
+    document.title = "Students Feedback System";
+    // Also update meta description if needed
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute('content', 'Students Feedback Collection System - A comprehensive platform for collecting and managing student feedback on teaching effectiveness');
+    }
+  }, []);
+
   return (
     <div className="App min-h-screen bg-gray-50 overflow-x-hidden w-full max-w-full" style={{width: '100vw', maxWidth: '100vw', margin: 0, padding: 0}}>
       <AuthProvider>
