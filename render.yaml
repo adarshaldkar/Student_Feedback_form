@@ -11,3 +11,11 @@ services:
         value: production
       - key: PORT
         value: 10000
+      - key: MONGO_URL
+        sync: false
+      - key: DB_NAME
+        value: students_feedback
+      - key: JWT_SECRET
+        sync: false
+      - key: FRONTEND_URL
+        value: https://students-feedback-system-three.vercel.app
