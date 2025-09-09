@@ -85,17 +85,49 @@ code {
     width: 100% !important;
     max-width: 100% !important;
     overflow-x: hidden !important;
+    font-size: 14px !important;
     }
   body {
     @apply bg-background text-foreground;
     width: 100% !important;
     max-width: 100% !important;
     overflow-x: hidden !important;
+    margin: 0 !important;
+    padding: 0 !important;
     }
   .App {
     @apply min-h-screen w-full max-w-full;
     overflow-x: hidden !important;
+    width: 100% !important;
+    max-width: 100% !important;
     }
+  
+  /* Critical Mobile Fixes */
+  @media (max-width: 768px) {
+    html {
+      font-size: 13px !important;
+    }
+    body {
+      font-size: 0.875rem !important;
+    }
+    .App {
+      padding: 0 !important;
+      margin: 0 !important;
+    }
+    * {
+      word-wrap: break-word !important;
+      overflow-wrap: break-word !important;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    html {
+      font-size: 12px !important;
+    }
+    body {
+      font-size: 0.8125rem !important;
+    }
+  }
   
   /* Ensure responsive table behaviors */
   .table-responsive {

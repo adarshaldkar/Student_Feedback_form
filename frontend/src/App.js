@@ -13,7 +13,7 @@ import { Toaster } from "./components/ui/toaster";
 
 function App() {
   return (
-    <div className="App min-h-screen bg-gray-50 overflow-x-hidden" style={{width: '100%', maxWidth: '100%'}}>
+    <div className="App min-h-screen bg-gray-50 overflow-x-hidden w-full max-w-full" style={{width: '100vw', maxWidth: '100vw', margin: 0, padding: 0}}>
       <AuthProvider>
         <HashRouter>
           <Navigation />
