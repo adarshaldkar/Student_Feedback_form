@@ -51,47 +51,11 @@ const HomePage = () => {
             </p>
           </div>
 
-          {/* Features Grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8 mb-12">
-            <Card className="text-center hover:shadow-lg transition-shadow duration-300 h-full">
-              <CardContent className="pt-8 pb-6 px-6 h-full flex flex-col">
-                <div className="flex-shrink-0 mb-4">
-                  <BookOpen className="h-12 w-12 text-blue-600 mx-auto" />
-                </div>
-                <h3 className="text-xl font-semibold mb-3 text-gray-900">Dynamic Forms</h3>
-                <p className="text-gray-600 flex-grow">
-                  Create customizable feedback forms with subjects and evaluation criteria
-                </p>
-              </CardContent>
-            </Card>
-            
-            <Card className="text-center hover:shadow-lg transition-shadow duration-300 h-full">
-              <CardContent className="pt-8 pb-6 px-6 h-full flex flex-col">
-                <div className="flex-shrink-0 mb-4">
-                  <Users className="h-12 w-12 text-green-600 mx-auto" />
-                </div>
-                <h3 className="text-xl font-semibold mb-3 text-gray-900">Easy Sharing</h3>
-                <p className="text-gray-600 flex-grow">
-                  Share feedback forms with students through secure shareable links
-                </p>
-              </CardContent>
-            </Card>
-            
-            <Card className="text-center hover:shadow-lg transition-shadow duration-300 h-full">
-              <CardContent className="pt-8 pb-6 px-6 h-full flex flex-col">
-                <div className="flex-shrink-0 mb-4">
-                  <Calendar className="h-12 w-12 text-purple-600 mx-auto" />
-                </div>
-                <h3 className="text-xl font-semibold mb-3 text-gray-900">Data Export</h3>
-                <p className="text-gray-600 flex-grow">
-                  Export feedback data in Excel format for analysis and reporting
-                </p>
-              </CardContent>
-            </Card>
-          </div>
+
+          
 
           {/* Access Section */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 lg:gap-8 max-w-4xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 lg:gap-8 max-w-4xl mx-auto mb-10">
             <Card>
               <CardHeader className="px-4 sm:px-6">
                 <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
@@ -156,6 +120,60 @@ const HomePage = () => {
               </CardContent>
             </Card>
           </div>
+
+
+          {/* Features Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8 mb-12">
+            <Card className="text-center hover:shadow-lg transition-shadow duration-300 h-full">
+              <CardContent className="pt-8 pb-6 px-6 h-full flex flex-col">
+                <div className="flex-shrink-0 mb-4">
+                  <BookOpen className="h-12 w-12 text-blue-600 mx-auto" />
+                </div>
+                <h3 className="text-xl font-semibold mb-3 text-gray-900">Dynamic Forms</h3>
+                <p className="text-gray-600 flex-grow">
+                  Create customizable feedback forms with subjects and evaluation criteria
+                </p>
+              </CardContent>
+            </Card>
+            
+            <Card className="text-center hover:shadow-lg transition-shadow duration-300 h-full">
+              <CardContent className="pt-8 pb-6 px-6 h-full flex flex-col">
+                <div className="flex-shrink-0 mb-4">
+                  <Users className="h-12 w-12 text-green-600 mx-auto" />
+                </div>
+                <h3 className="text-xl font-semibold mb-3 text-gray-900">Easy Sharing</h3>
+                <p className="text-gray-600 flex-grow">
+                  Share feedback forms with students through secure shareable links
+                </p>
+              </CardContent>
+            </Card>
+            
+            <Card className="text-center hover:shadow-lg transition-shadow duration-300 h-full">
+              <CardContent className="pt-8 pb-6 px-6 h-full flex flex-col">
+                <div className="flex-shrink-0 mb-4">
+                  <Calendar className="h-12 w-12 text-purple-600 mx-auto" />
+                </div>
+                <h3 className="text-xl font-semibold mb-3 text-gray-900">Data Export</h3>
+                <p className="text-gray-600 flex-grow">
+                  Export feedback data in Excel format for analysis and reporting
+                </p>
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* Call to Action */}
+          {/* <div className="text-center mt-12">
+            <h2 className="text-2xl font-semibold mb-4">Get Started Today</h2>
+            <p className="text-gray-600 mb-6">
+              Sign up now to create your first feedback form and start collecting valuable insights!
+            </p>
+            <Button 
+              onClick={() => navigate('/register')}
+              className="w-full sm:w-auto text-sm sm:text-base py-2 sm:py-3"
+            >
+              Sign Up
+            </Button>
+          </div> */}
 
           {/* Footer */}
           <footer className="mt-16 pt-8 border-t border-gray-200 bg-white rounded-lg shadow-sm">
