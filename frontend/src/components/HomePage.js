@@ -115,7 +115,7 @@ const HomePage = () => {
                     Access Form
                   </Button>
                 </div>
-                <div className="mt-4 pt-4 border-t">
+                {/* <div className="mt-4 pt-4 border-t">
                   <Button 
                     variant="outline" 
                     onClick={() => navigate('/student-login')}
@@ -123,7 +123,7 @@ const HomePage = () => {
                   >
                     Student Login
                   </Button>
-                </div>
+                </div> */}
               </CardContent>
             </Card>
             
@@ -172,11 +172,9 @@ const HomePage = () => {
                       e.target.nextSibling.style.display = 'block';
                     }}
                   />
-                  <div className="h-16 w-16 bg-gradient-to-br from-blue-600 to-purple-600 rounded-lg flex items-center justify-center mx-auto mb-3" style={{display: 'none'}}>
-                    <BookOpen className="h-8 w-8 text-white" />
-                  </div>
+                  
                 </div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">Students Feedback System</h3>
+                {/* <h3 className="text-lg font-semibold text-gray-900 mb-2">Students Feedback System</h3> */}
                 <p className="text-sm text-gray-600 mb-6 max-w-2xl mx-auto">
                   Secure • Easy to use • Comprehensive feedback collection platform
                 </p>
