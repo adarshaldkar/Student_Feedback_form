@@ -25,14 +25,14 @@ const Navigation = () => {
   return (
     <nav className="bg-white shadow-lg border-b sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-6">
-        <div className="flex justify-between items-center py-3 sm:py-4">
+        <div className="flex items-center py-3 sm:py-4">
           {/* Logo/Brand */}
-          <div className="cursor-pointer flex-1 min-w-0 flex items-center gap-3" onClick={() => navigate('/')}>
+          <div className="cursor-pointer flex-1 flex items-center gap-3" onClick={() => navigate('/')}>
             <div className="flex items-center gap-3">
               <img 
-                src="/college_logo.jpg" 
+                src="/college_logo_1.jpg" 
                 alt="College Logo" 
-                className="h-12 w-auto object-contain max-w-[200px] sm:max-w-[250px]"
+                className="h-12 sm:h-14 lg:h-16 xl:h-20 w-auto object-contain max-w-[200px] sm:max-w-[250px] lg:max-w-[300px] xl:max-w-[350px]"
                 onError={(e) => {
                   e.target.style.display = 'none';
                   e.target.nextSibling.style.display = 'block';
@@ -41,9 +41,19 @@ const Navigation = () => {
               
             </div>
           </div>
+
+          {/* Centered Department Section */}
+          <div className="hidden md:flex flex-col items-center justify-center flex-1">
+            <h2 className="text-lg lg:text-xl xl:text-2xl font-bold text-gray-800 tracking-wide">
+              Department of 
+            </h2>
+            <p className="text-xs lg:text-sm text-blue-600 font-medium uppercase tracking-wider">
+              Electronics & Communication Engineering
+            </p>
+          </div>
           
           {/* Desktop Navigation */}
-          <div className="hidden md:flex gap-2 lg:gap-3 items-center shrink-0">
+          <div className="hidden md:flex gap-2 lg:gap-3 items-center justify-end flex-1">
             {isAuthenticated ? (
               <>
                 <span className="text-sm text-gray-600 mr-2 max-w-32 truncate">

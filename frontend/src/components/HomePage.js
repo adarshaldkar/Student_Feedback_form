@@ -184,7 +184,7 @@ const HomePage = () => {
                   <img 
                     src="/Company_logo.png" 
                     alt="Company Logo" 
-                    className="h-20 w-auto mx-auto mb-4"
+                    className="h-32 w-auto mx-auto mb-4"
                     onError={(e) => {
                       e.target.style.display = 'none';
                       e.target.nextSibling.style.display = 'block';
