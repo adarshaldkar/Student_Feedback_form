@@ -5,6 +5,7 @@ import { Button } from './ui/button';
 import { Badge } from './ui/badge';
 import { User, Shield, LogOut, Home, Menu, X } from 'lucide-react';
 
+// College logo is served from public folder
 const Navigation = () => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -27,17 +28,17 @@ const Navigation = () => {
         <div className="flex justify-between items-center py-3 sm:py-4">
           {/* Logo/Brand */}
           <div className="cursor-pointer flex-1 min-w-0 flex items-center gap-3" onClick={() => navigate('/')}>
-            {/* College Logo Placeholder */}
-            <div className="shrink-0 w-8 h-8 sm:w-10 sm:h-10 bg-blue-600 rounded-full flex items-center justify-center">
-              <span className="text-white font-bold text-sm sm:text-base">C</span>
-            </div>
-            <div className="min-w-0">
-              <h1 className="text-base sm:text-lg lg:text-xl font-bold text-gray-900 truncate">
-                Students Feedback System
-              </h1>
-              <p className="text-xs sm:text-sm text-gray-600 hidden sm:block truncate">
-                Submit your feedback for all subjects
-              </p>
+            <div className="flex items-center gap-3">
+              <img 
+                src="/college_logo.jpg" 
+                alt="College Logo" 
+                className="h-12 w-auto object-contain max-w-[200px] sm:max-w-[250px]"
+                onError={(e) => {
+                  e.target.style.display = 'none';
+                  e.target.nextSibling.style.display = 'block';
+                }}
+              />
+              
             </div>
           </div>
           

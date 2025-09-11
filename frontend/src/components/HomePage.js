@@ -7,7 +7,7 @@ import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Badge } from './ui/badge';
 import { Alert, AlertDescription } from './ui/alert';
-import { Loader2, ExternalLink, Calendar, Users, BookOpen, Github, Linkedin, Mail, Heart } from 'lucide-react';
+import { Loader2, ExternalLink, Calendar, Users, BookOpen, Github, Linkedin, Mail, Heart, Phone } from 'lucide-react';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || 'https://students-feedback-system-3.onrender.com';
 const API = `${BACKEND_URL}/api`;
@@ -162,11 +162,11 @@ const HomePage = () => {
             <div className="max-w-4xl mx-auto px-6">
               {/* Company Logo and Info */}
               <div className="text-center mb-8">
-                <div className="mb-4">
+                <div className="mb-6">
                   <img 
                     src="/Company_logo.png" 
                     alt="Company Logo" 
-                    className="h-16 w-auto mx-auto mb-3"
+                    className="h-20 w-auto mx-auto mb-4"
                     onError={(e) => {
                       e.target.style.display = 'none';
                       e.target.nextSibling.style.display = 'block';
@@ -174,10 +174,17 @@ const HomePage = () => {
                   />
                   
                 </div>
-                {/* <h3 className="text-lg font-semibold text-gray-900 mb-2">Students Feedback System</h3> */}
-                <p className="text-sm text-gray-600 mb-6 max-w-2xl mx-auto">
+                
+                <p className="text-sm text-gray-600 mb-4 max-w-2xl mx-auto">
                   Secure • Easy to use • Comprehensive feedback collection platform
                 </p>
+                <div className="text-sm text-gray-600 mb-6">
+                  <p className="mb-2 flex items-center justify-center gap-2">
+                    <Phone className="h-4 w-4 text-blue-600" />
+                    Contact Support: <a href="tel:+918248622746" className="text-blue-600 hover:text-blue-800 font-medium transition-colors">+91 82486 22746</a>
+                  </p>
+                  <p className="text-xs text-gray-500">Available Monday to Friday, 9:00 AM - 6:00 PM</p>
+                </div>
               </div>
 
               {/* Developers Section */}
