@@ -7,7 +7,8 @@ import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Badge } from './ui/badge';
 import { Alert, AlertDescription } from './ui/alert';
-import { Loader2, ExternalLink, Calendar, Users, BookOpen } from 'lucide-react';
+import { Loader2, ExternalLink, Calendar, Users, BookOpen, Github, Linkedin, Mail, Heart } from 'lucide-react';
+import CompanyLogo from '../assets/Company_logo.png';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || 'https://students-feedback-system-3.onrender.com';
 const API = `${BACKEND_URL}/api`;
@@ -52,32 +53,38 @@ const HomePage = () => {
           </div>
 
           {/* Features Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 mb-8 sm:mb-10 lg:mb-12">
-            <Card className="text-center">
-              <CardContent className="pt-4 sm:pt-6 px-3 sm:px-6">
-                <BookOpen className="h-8 w-8 sm:h-10 sm:w-10 lg:h-12 lg:w-12 text-blue-600 mx-auto mb-3 sm:mb-4" />
-                <h3 className="text-base sm:text-lg font-semibold mb-2">Dynamic Forms</h3>
-                <p className="text-sm sm:text-base text-gray-600">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 mb-12">
+            <Card className="text-center hover:shadow-lg transition-shadow duration-300 h-full">
+              <CardContent className="pt-8 pb-6 px-6 h-full flex flex-col">
+                <div className="flex-shrink-0 mb-4">
+                  <BookOpen className="h-12 w-12 text-blue-600 mx-auto" />
+                </div>
+                <h3 className="text-xl font-semibold mb-3 text-gray-900">Dynamic Forms</h3>
+                <p className="text-gray-600 flex-grow">
                   Create customizable feedback forms with subjects and evaluation criteria
                 </p>
               </CardContent>
             </Card>
             
-            <Card className="text-center">
-              <CardContent className="pt-4 sm:pt-6 px-3 sm:px-6">
-                <Users className="h-8 w-8 sm:h-10 sm:w-10 lg:h-12 lg:w-12 text-green-600 mx-auto mb-3 sm:mb-4" />
-                <h3 className="text-base sm:text-lg font-semibold mb-2">Easy Sharing</h3>
-                <p className="text-sm sm:text-base text-gray-600">
+            <Card className="text-center hover:shadow-lg transition-shadow duration-300 h-full">
+              <CardContent className="pt-8 pb-6 px-6 h-full flex flex-col">
+                <div className="flex-shrink-0 mb-4">
+                  <Users className="h-12 w-12 text-green-600 mx-auto" />
+                </div>
+                <h3 className="text-xl font-semibold mb-3 text-gray-900">Easy Sharing</h3>
+                <p className="text-gray-600 flex-grow">
                   Share feedback forms with students through secure shareable links
                 </p>
               </CardContent>
             </Card>
             
-            <Card className="text-center">
-              <CardContent className="pt-4 sm:pt-6 px-3 sm:px-6">
-                <Calendar className="h-8 w-8 sm:h-10 sm:w-10 lg:h-12 lg:w-12 text-purple-600 mx-auto mb-3 sm:mb-4" />
-                <h3 className="text-base sm:text-lg font-semibold mb-2">Data Export</h3>
-                <p className="text-sm sm:text-base text-gray-600">
+            <Card className="text-center hover:shadow-lg transition-shadow duration-300 h-full">
+              <CardContent className="pt-8 pb-6 px-6 h-full flex flex-col">
+                <div className="flex-shrink-0 mb-4">
+                  <Calendar className="h-12 w-12 text-purple-600 mx-auto" />
+                </div>
+                <h3 className="text-xl font-semibold mb-3 text-gray-900">Data Export</h3>
+                <p className="text-gray-600 flex-grow">
                   Export feedback data in Excel format for analysis and reporting
                 </p>
               </CardContent>
@@ -152,9 +159,82 @@ const HomePage = () => {
           </div>
 
           {/* Footer */}
-          <div className="text-center mt-8 sm:mt-10 lg:mt-12 text-gray-500 px-2">
-            <p className="text-sm sm:text-base">Secure • Easy to use • Comprehensive feedback collection</p>
-          </div>
+          <footer className="mt-16 pt-8 border-t border-gray-200 bg-white rounded-lg shadow-sm">
+            <div className="max-w-4xl mx-auto px-6">
+              {/* Company Logo and Info */}
+              <div className="text-center mb-8">
+                <div className="mb-4">
+                  <img 
+                    src="/Company_logo.png" 
+                    alt="Company Logo" 
+                    className="h-16 w-auto mx-auto mb-3"
+                    onError={(e) => {
+                      e.target.style.display = 'none';
+                      e.target.nextSibling.style.display = 'block';
+                    }}
+                  />
+                  <div className="h-16 w-16 bg-gradient-to-br from-blue-600 to-purple-600 rounded-lg flex items-center justify-center mx-auto mb-3" style={{display: 'none'}}>
+                    <BookOpen className="h-8 w-8 text-white" />
+                  </div>
+                </div>
+                <h3 className="text-lg font-semibold text-gray-900 mb-2">Students Feedback System</h3>
+                <p className="text-sm text-gray-600 mb-6 max-w-2xl mx-auto">
+                  Secure • Easy to use • Comprehensive feedback collection platform
+                </p>
+              </div>
+
+              {/* Developers Section */}
+              <div className="grid md:grid-cols-2 gap-6 mb-8">
+                <div className="text-center p-4 bg-gray-50 rounded-lg">
+                  <div className="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-3">
+                    <Users className="h-6 w-6 text-white" />
+                  </div>
+                  <h4 className="font-semibold text-gray-900 mb-2">Adarsh Patel</h4>
+                  <p className="text-sm text-gray-600 mb-3">Full Stack Developer</p>
+                  <a 
+                    href="https://www.linkedin.com/in/adarsh-patel14/" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-800 transition-colors"
+                  >
+                    <Linkedin className="h-4 w-4" />
+                    Connect on LinkedIn
+                  </a>
+                </div>
+
+                <div className="text-center p-4 bg-gray-50 rounded-lg">
+                  <div className="w-12 h-12 bg-green-600 rounded-full flex items-center justify-center mx-auto mb-3">
+                    <Users className="h-6 w-6 text-white" />
+                  </div>
+                  <h4 className="font-semibold text-gray-900 mb-2">Praveen Kumar</h4>
+                  <p className="text-sm text-gray-600 mb-3">Full Stack Developer</p>
+                  <a 
+                    href="https://www.linkedin.com/in/praveenkumar-fullstackdeveloper/" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 text-green-600 hover:text-green-800 transition-colors"
+                  >
+                    <Linkedin className="h-4 w-4" />
+                    Connect on LinkedIn
+                  </a>
+                </div>
+              </div>
+
+              {/* Bottom Footer */}
+              <div className="border-t border-gray-200 pt-6 pb-6">
+                <div className="flex flex-col md:flex-row justify-between items-center text-sm text-gray-500">
+                  <div className="mb-4 md:mb-0">
+                    <p className="flex items-center gap-1">
+                      Made with <Heart className="h-4 w-4 text-red-500 fill-current" /> by our development team
+                    </p>
+                  </div>
+                  <div className="flex items-center gap-4">
+                    <span>© {new Date().getFullYear()} All rights reserved</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </footer>
         </div>
       </div>
     );
