@@ -123,7 +123,7 @@ const HomePage = () => {
 
 
           {/* Features Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8 mb-12">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8 mb-12">
             <Card className="text-center hover:shadow-lg transition-shadow duration-300 h-full">
               <CardContent className="pt-8 pb-6 px-6 h-full flex flex-col">
                 <div className="flex-shrink-0 mb-4">
@@ -206,7 +206,7 @@ const HomePage = () => {
               </div>
 
               {/* Developers Section */}
-              <div className="grid md:grid-cols-2 gap-6 mb-8">
+              <div className="grid grid-cols-2 gap-3 sm:gap-4 md:gap-6 mb-8">
                 <div className="text-center p-4 bg-gray-50 rounded-lg">
                   <div className="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-3">
                     <Users className="h-6 w-6 text-white" />

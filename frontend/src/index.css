@@ -225,6 +225,26 @@ code {
     }
   }
   
+  @media (min-width: 1280px) {
+    .xl\:grid-cols-2 {
+      grid-template-columns: repeat(2, 1fr) !important;
+    }
+    .xl\:grid-cols-3 {
+      grid-template-columns: repeat(3, 1fr) !important;
+    }
+    .xl\:grid-cols-4 {
+      grid-template-columns: repeat(4, 1fr) !important;
+    }
+  }
+  
+  /* Features Grid Specific Fix */
+  @media (min-width: 1024px) {
+    .grid.grid-cols-1.lg\:grid-cols-3 {
+      grid-template-columns: repeat(3, 1fr) !important;
+      display: grid !important;
+    }
+  }
+  
   /* Flex responsive fixes */
   .flex {
     display: flex !important;
