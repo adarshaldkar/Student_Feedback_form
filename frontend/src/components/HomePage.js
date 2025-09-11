@@ -8,7 +8,6 @@ import { Input } from './ui/input';
 import { Badge } from './ui/badge';
 import { Alert, AlertDescription } from './ui/alert';
 import { Loader2, ExternalLink, Calendar, Users, BookOpen, Github, Linkedin, Mail, Heart } from 'lucide-react';
-import CompanyLogo from '../assets/Company_logo.png';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || 'https://students-feedback-system-3.onrender.com';
 const API = `${BACKEND_URL}/api`;
@@ -53,7 +52,7 @@ const HomePage = () => {
           </div>
 
           {/* Features Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 mb-12">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8 mb-12">
             <Card className="text-center hover:shadow-lg transition-shadow duration-300 h-full">
               <CardContent className="pt-8 pb-6 px-6 h-full flex flex-col">
                 <div className="flex-shrink-0 mb-4">
