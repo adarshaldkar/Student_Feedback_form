@@ -18,6 +18,7 @@ import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 import { Alert, AlertDescription } from './ui/alert';
 import { Loader2, FileDown } from 'lucide-react';
 import { useToast } from '../hooks/use-toast';
+import Footer from './Footer';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || 'https://students-feedback-system-3.onrender.com';
 const API = `${BACKEND_URL}/api`;
@@ -464,6 +465,9 @@ const StudentView = () => {
           </CardContent>
         </Card>
       </div>
+      
+      {/* Footer */}
+      <Footer />
     </div>
   );
 };

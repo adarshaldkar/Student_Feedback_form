@@ -7,6 +7,7 @@ import { Label } from './ui/label';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 import { Alert, AlertDescription } from './ui/alert';
 import { Loader2, User, Shield } from 'lucide-react';
+import Footer from './Footer';
 
 const Login = ({ role = 'admin' }) => {
   const [username, setUsername] = useState('');
@@ -40,90 +41,95 @@ const Login = ({ role = 'admin' }) => {
   const isAdminLogin = role === 'admin';
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center px-4">
-      <Card className="w-full max-w-md">
-        <CardHeader className="space-y-1">
-          <CardTitle className="text-2xl font-bold text-center flex items-center justify-center gap-2">
-            {isAdminLogin ? <Shield className="h-6 w-6 text-blue-600" /> : <User className="h-6 w-6 text-green-600" />}
-            {isAdminLogin ? 'Admin Login' : 'Student Login'}
-          </CardTitle>
-          <p className="text-sm text-gray-600 text-center">
-            {isAdminLogin 
-              ? 'Access the admin dashboard to manage feedback forms'
-              : 'Access student feedback forms'
-            }
-          </p>
-        </CardHeader>
-        <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-4">
-            {error && (
-              <Alert variant="destructive">
-                <AlertDescription>{error}</AlertDescription>
-              </Alert>
-            )}
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+      <div className="flex items-center justify-center px-4 py-8">
+        <Card className="w-full max-w-md">
+          <CardHeader className="space-y-1">
+            <CardTitle className="text-2xl font-bold text-center flex items-center justify-center gap-2">
+              {isAdminLogin ? <Shield className="h-6 w-6 text-blue-600" /> : <User className="h-6 w-6 text-green-600" />}
+              {isAdminLogin ? 'Admin Login' : 'Student Login'}
+            </CardTitle>
+            <p className="text-sm text-gray-600 text-center">
+              {isAdminLogin 
+                ? 'Access the admin dashboard to manage feedback forms'
+                : 'Access student feedback forms'
+              }
+            </p>
+          </CardHeader>
+          <CardContent>
+            <form onSubmit={handleSubmit} className="space-y-4">
+              {error && (
+                <Alert variant="destructive">
+                  <AlertDescription>{error}</AlertDescription>
+                </Alert>
+              )}
+              
+              <div className="space-y-2">
+                <Label htmlFor="username">Username</Label>
+                <Input
+                  id="username"
+                  type="text"
+                  placeholder="Enter your username"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  required
+                  disabled={loading}
+                />
+              </div>
+              
+              <div className="space-y-2">
+                <Label htmlFor="password">Password</Label>
+                <Input
+                  id="password"
+                  type="password"
+                  placeholder="Enter your password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                  disabled={loading}
+                />
+              </div>
+              
+              <Button type="submit" className="w-full" disabled={loading}>
+                {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                Sign In
+              </Button>
+            </form>
             
-            <div className="space-y-2">
-              <Label htmlFor="username">Username</Label>
-              <Input
-                id="username"
-                type="text"
-                placeholder="Enter your username"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                required
-                disabled={loading}
-              />
-            </div>
-            
-            <div className="space-y-2">
-              <Label htmlFor="password">Password</Label>
-              <Input
-                id="password"
-                type="password"
-                placeholder="Enter your password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-                disabled={loading}
-              />
-            </div>
-            
-            <Button type="submit" className="w-full" disabled={loading}>
-              {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-              Sign In
-            </Button>
-          </form>
-          
-          <div className="mt-6 space-y-2">
-            <div className="text-center text-sm text-gray-600">
-              {isAdminLogin ? (
-                <p>
-                  Student?{' '}
-                  <Link to="/student-login" className="text-blue-600 hover:text-blue-800 font-medium">
-                    Student Login
+            <div className="mt-6 space-y-2">
+              <div className="text-center text-sm text-gray-600">
+                {isAdminLogin ? (
+                  <p>
+                    Student?{' '}
+                    <Link to="/student-login" className="text-blue-600 hover:text-blue-800 font-medium">
+                      Student Login
+                    </Link>
+                  </p>
+                ) : (
+                  <p>
+                    Admin?{' '}
+                    <Link to="/admin-login" className="text-blue-600 hover:text-blue-800 font-medium">
+                      Admin Login
+                    </Link>
+                  </p>
+                )}
+              </div>
+              
+              {isAdminLogin && (
+                <div className="text-center text-sm text-gray-600">
+                  Don't have an admin account?{' '}
+                  <Link to="/register" className="text-blue-600 hover:text-blue-800 font-medium">
+                    Register here
                   </Link>
-                </p>
-              ) : (
-                <p>
-                  Admin?{' '}
-                  <Link to="/admin-login" className="text-blue-600 hover:text-blue-800 font-medium">
-                    Admin Login
-                  </Link>
-                </p>
+                </div>
               )}
             </div>
-            
-            {isAdminLogin && (
-              <div className="text-center text-sm text-gray-600">
-                Don't have an admin account?{' '}
-                <Link to="/register" className="text-blue-600 hover:text-blue-800 font-medium">
-                  Register here
-                </Link>
-              </div>
-            )}
-          </div>
-        </CardContent>
-      </Card>
+          </CardContent>
+        </Card>
+      </div>
+      
+      {/* Footer */}
+      <Footer />
     </div>
   );
 };
