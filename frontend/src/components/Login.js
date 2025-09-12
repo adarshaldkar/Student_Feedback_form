@@ -7,7 +7,11 @@ import { Label } from './ui/label';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 import { Alert, AlertDescription } from './ui/alert';
 import { Loader2, User, Shield } from 'lucide-react';
+
 import { toast } from 'sonner';
+
+import Footer from './Footer';
+
 
 const Login = ({ role = 'admin' }) => {
   const [username, setUsername] = useState('');

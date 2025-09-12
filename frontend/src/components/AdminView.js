@@ -9,8 +9,10 @@ import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 import { Badge } from './ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs';
 import { Alert, AlertDescription } from './ui/alert';
+
 import { Plus, Trash2, Download, Upload, Link, Copy, Loader2, LogOut, Edit, AlertTriangle, FileText, RefreshCw, Sparkles, Save, BookOpen, X, Settings, PlusCircle } from 'lucide-react';
 import { toast } from 'sonner';
+
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || 'https://students-feedback-system-3.onrender.com';
 const API = `${BACKEND_URL}/api`;
@@ -1958,6 +1960,9 @@ const AdminView = () => {
           </div>
         )}
       </div>
+      
+      {/* Footer */}
+      <Footer />
     </div>
   );
 };
