@@ -297,7 +297,7 @@ const StudentView = () => {
                               <SelectTrigger className={`w-16 h-8 text-white font-medium ${getRatingColor(parseInt(ratings[subject]?.[criteria] || 5))}`}>
                                 <SelectValue />
                               </SelectTrigger>
-                              <SelectContent>
+                              <SelectContent className="z-50">
                                 {ratingScale.map(scale => (
                                   <SelectItem key={scale.value} value={scale.value.toString()}>
                                     {scale.value} - {scale.label}
@@ -327,15 +327,15 @@ const StudentView = () => {
             {/* Desktop View - Table Layout */}
               <div className="hidden lg:block" style={{width: '100%', overflowX: 'auto'}}>
                 <div className="overflow-x-auto table-responsive -mx-3 sm:-mx-4 lg:-mx-6 xl:-mx-8 px-3 sm:px-4 lg:px-6 xl:px-8" style={{WebkitOverflowScrolling: 'touch'}}>
-                  <div className="min-w-[1000px]" style={{width: '100%'}}>
+                  <div className="min-w-[1200px]" style={{width: '100%'}}>
                     <table className="w-full border-collapse">
                       <thead>
                         <tr>
-                          <th className="sticky left-0 bg-gray-100 p-3 text-left font-medium text-gray-700 border border-gray-300 w-64">
+                          <th className="sticky left-0 bg-gray-100 p-4 text-left font-medium text-gray-700 border border-gray-300 w-64">
                             Evaluation Criteria
                           </th>
                           {formData?.subjects.map((subject) => (
-                            <th key={subject} className="p-3 text-center font-medium text-gray-700 border border-gray-300 min-w-32">
+                            <th key={subject} className="p-4 text-center font-medium text-gray-700 border border-gray-300 min-w-40">
                               {subject}
                             </th>
                           ))}
@@ -344,38 +344,40 @@ const StudentView = () => {
                       <tbody>
                         {formData?.evaluation_criteria.map((criteria) => (
                           <tr key={criteria} className="hover:bg-gray-50">
-                            <td className="sticky left-0 bg-white p-3 text-sm text-gray-900 border border-gray-300 font-medium">
+                            <td className="sticky left-0 bg-white p-4 text-sm text-gray-900 border border-gray-300 font-medium align-middle">
                               {criteria}
                             </td>
                             {formData.subjects.map((subject) => (
-                              <td key={`${criteria}-${subject}`} className="p-3 border border-gray-300 text-center">
-                                <Select
-                                  value={ratings[subject]?.[criteria]?.toString() || '5'}
-                                  onValueChange={(value) => handleRatingChange(subject, criteria, value)}
-                                  disabled={submitting}
-                                >
-                                  <SelectTrigger className={`w-16 h-8 mx-auto text-white font-medium ${getRatingColor(parseInt(ratings[subject]?.[criteria] || 5))}`}>
-                                    <SelectValue />
-                                  </SelectTrigger>
-                                  <SelectContent>
-                                    {ratingScale.map(scale => (
-                                      <SelectItem key={scale.value} value={scale.value.toString()}>
-                                        {scale.value} - {scale.label}
-                                      </SelectItem>
-                                    ))}
-                                  </SelectContent>
-                                </Select>
+                              <td key={`${criteria}-${subject}`} className="p-4 border border-gray-300 text-center align-middle">
+                                <div className="flex justify-center items-center">
+                                  <Select
+                                    value={ratings[subject]?.[criteria]?.toString() || '5'}
+                                    onValueChange={(value) => handleRatingChange(subject, criteria, value)}
+                                    disabled={submitting}
+                                  >
+                                    <SelectTrigger className={`w-20 h-10 text-white font-medium ${getRatingColor(parseInt(ratings[subject]?.[criteria] || 5))}`}>
+                                      <SelectValue />
+                                    </SelectTrigger>
+                                    <SelectContent className="z-50">
+                                      {ratingScale.map(scale => (
+                                        <SelectItem key={scale.value} value={scale.value.toString()}>
+                                          {scale.value} - {scale.label}
+                                        </SelectItem>
+                                      ))}
+                                    </SelectContent>
+                                  </Select>
+                                </div>
                               </td>
                             ))}
                           </tr>
                         ))}
                         {/* Average Row */}
                         <tr className="bg-blue-50">
-                          <td className="sticky left-0 bg-blue-100 p-3 text-sm font-bold text-gray-900 border border-gray-300">
+                          <td className="sticky left-0 bg-blue-100 p-4 text-sm font-bold text-gray-900 border border-gray-300 align-middle">
                             Your Average Rating
                           </td>
                           {formData?.subjects.map(subject => (
-                            <td key={`avg-${subject}`} className="p-3 border border-gray-300 text-center">
+                            <td key={`avg-${subject}`} className="p-4 border border-gray-300 text-center align-middle">
                               <span className="text-lg font-bold text-blue-600">
                                 {calculateAverage(subject)}
                               </span>
