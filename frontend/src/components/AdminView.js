@@ -12,6 +12,7 @@ import { Alert, AlertDescription } from './ui/alert';
 
 import { Plus, Trash2, Download, Upload, Link, Copy, Loader2, LogOut, Edit, AlertTriangle, FileText, RefreshCw, Sparkles, Save, BookOpen, X, Settings, PlusCircle } from 'lucide-react';
 import { toast } from 'sonner';
+import Footer from './Footer';
 
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || 'https://students-feedback-system-3.onrender.com';
