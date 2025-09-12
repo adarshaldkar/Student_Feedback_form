@@ -96,15 +96,6 @@ const Navigation = () => {
               </>
             ) : (
               <>
-                {/* <Button
-                  variant="outline"
-                  onClick={() => navigate('/student-login')}
-                  className="flex items-center gap-2 text-sm"
-                  size="sm"
-                >
-                  <User className="h-4 w-4" />
-                  Student
-                </Button> */}
                 <Button
                   variant="default"
                   onClick={() => navigate('/admin-login')}
@@ -181,15 +172,6 @@ const Navigation = () => {
                 </>
               ) : (
                 <>
-                  <Button
-                    variant="outline"
-                    onClick={() => { navigate('/student-login'); closeMobileMenu(); }}
-                    className="w-full justify-start gap-2"
-                    size="sm"
-                  >
-                    <User className="h-4 w-4" />
-                    Student Login
-                  </Button>
                   <Button
                     variant="default"
                     onClick={() => { navigate('/admin-login'); closeMobileMenu(); }}

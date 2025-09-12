@@ -7,6 +7,7 @@ import { Label } from './ui/label';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 import { Alert, AlertDescription } from './ui/alert';
 import { Loader2, User, Shield } from 'lucide-react';
+import { toast } from 'sonner';
 
 const Login = ({ role = 'admin' }) => {
   const [username, setUsername] = useState('');
@@ -25,6 +26,10 @@ const Login = ({ role = 'admin' }) => {
     const result = await login(username, password);
     
     if (result.success) {
+      toast.success('Signed in successfully', {
+        description: result.role === 'admin' ? 'Redirecting to admin dashboard...' : 'Redirecting...',
+        duration: 2500,
+      });
       if (result.role === 'admin') {
         navigate('/admin');
       } else {
@@ -32,6 +37,10 @@ const Login = ({ role = 'admin' }) => {
       }
     } else {
       setError(result.error);
+      toast.error('Sign in failed', {
+        description: result.error,
+        duration: 4000,
+      });
     }
     
     setLoading(false);
@@ -44,14 +53,11 @@ const Login = ({ role = 'admin' }) => {
       <Card className="w-full max-w-md">
         <CardHeader className="space-y-1">
           <CardTitle className="text-2xl font-bold text-center flex items-center justify-center gap-2">
-            {isAdminLogin ? <Shield className="h-6 w-6 text-blue-600" /> : <User className="h-6 w-6 text-green-600" />}
-            {isAdminLogin ? 'Admin Login' : 'Student Login'}
+            <Shield className="h-6 w-6 text-blue-600" />
+            Admin Login
           </CardTitle>
           <p className="text-sm text-gray-600 text-center">
-            {isAdminLogin 
-              ? 'Access the admin dashboard to manage feedback forms'
-              : 'Access student feedback forms'
-            }
+            Access the admin dashboard to manage feedback forms
           </p>
         </CardHeader>
         <CardContent>
@@ -96,31 +102,11 @@ const Login = ({ role = 'admin' }) => {
           
           <div className="mt-6 space-y-2">
             <div className="text-center text-sm text-gray-600">
-              {isAdminLogin ? (
-                <p>
-                  Student?{' '}
-                  <Link to="/student-login" className="text-blue-600 hover:text-blue-800 font-medium">
-                    Student Login
-                  </Link>
-                </p>
-              ) : (
-                <p>
-                  Admin?{' '}
-                  <Link to="/admin-login" className="text-blue-600 hover:text-blue-800 font-medium">
-                    Admin Login
-                  </Link>
-                </p>
-              )}
+              Don't have an admin account?{' '}
+              <Link to="/register" className="text-blue-600 hover:text-blue-800 font-medium">
+                Register here
+              </Link>
             </div>
-            
-            {isAdminLogin && (
-              <div className="text-center text-sm text-gray-600">
-                Don't have an admin account?{' '}
-                <Link to="/register" className="text-blue-600 hover:text-blue-800 font-medium">
-                  Register here
-                </Link>
-              </div>
-            )}
           </div>
         </CardContent>
       </Card>

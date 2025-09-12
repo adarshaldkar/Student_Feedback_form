@@ -10,6 +10,7 @@ import AdminView from "./components/AdminView";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import { Toaster } from "./components/ui/toaster";
+import { Toaster as SonnerToaster } from "sonner";
 
 function App() {
   // Ensure correct title is always set
@@ -31,7 +32,6 @@ function App() {
             <Routes>
             {/* Public Routes */}
             <Route path="/" element={<HomePage />} />
-            <Route path="/student-login" element={<Login role="student" />} />
             <Route path="/admin-login" element={<Login role="admin" />} />
             <Route path="/register" element={<Register />} />
             
@@ -75,6 +75,13 @@ function App() {
             </Routes>
           </main>
           <Toaster />
+          <SonnerToaster 
+            position="top-right" 
+            richColors 
+            theme="light"
+            closeButton
+            expand
+          />
         </HashRouter>
       </AuthProvider>
     </div>

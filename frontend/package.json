@@ -58,7 +58,9 @@
   "scripts": {
     "start": "craco start",
     "build": "craco build",
-    "test": "craco test"
+    "build:prod": "node build-production.js",
+    "test": "craco test",
+    "preview": "serve -s build -l 3000"
   },
   "browserslist": {
     "production": [

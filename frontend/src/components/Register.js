@@ -7,6 +7,7 @@ import { Label } from './ui/label';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 import { Alert, AlertDescription } from './ui/alert';
 import { Loader2, Shield } from 'lucide-react';
+import { toast } from 'sonner';
 
 const Register = () => {
   const [username, setUsername] = useState('');
@@ -25,13 +26,17 @@ const Register = () => {
     setError('');
 
     if (password !== confirmPassword) {
-      setError('Passwords do not match');
+      const msg = 'Passwords do not match';
+      setError(msg);
+      toast.error('Registration error', { description: msg, duration: 4000 });
       setLoading(false);
       return;
     }
 
     if (password.length < 6) {
-      setError('Password must be at least 6 characters long');
+      const msg = 'Password must be at least 6 characters long';
+      setError(msg);
+      toast.error('Registration error', { description: msg, duration: 4000 });
       setLoading(false);
       return;
     }
@@ -39,9 +44,14 @@ const Register = () => {
     const result = await register(username, email, password, 'admin');
     
     if (result.success) {
+      toast.success('Account created', {
+        description: 'Welcome! Redirecting to admin dashboard...',
+        duration: 2500,
+      });
       navigate('/admin');
     } else {
       setError(result.error);
+      toast.error('Registration failed', { description: result.error, duration: 4000 });
     }
     
     setLoading(false);
