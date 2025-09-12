@@ -62,7 +62,9 @@ const StudentView = () => {
   const fetchFormData = async () => {
     try {
       setLoading(true);
+      console.log('Fetching form data for formId:', formId);
       const response = await axios.get(`${API}/forms/${formId}`);
+      console.log('Form data received:', response.data);
       setFormData(response.data);
       setError('');
     } catch (error) {
@@ -96,17 +98,37 @@ const StudentView = () => {
   };
 
   const handleSubmit = async () => {
+    // Basic validation
+    if (!studentName.trim()) {
+      setError('Please enter your name');
+      return;
+    }
+    
+    if (!comments.trim()) {
+      setError('Please provide some comments');
+      return;
+    }
+    
     setSubmitting(true);
     setError('');
 
     try {
+      // Generate a unique student_id based on name and timestamp
+      const generateStudentId = () => {
+        const name = studentName.trim().toLowerCase().replace(/\s+/g, '_');
+        const timestamp = Date.now().toString().slice(-6);
+        return `${name}_${timestamp}`;
+      };
+      
       const feedbackData = {
         form_id: formId,
+        student_id: generateStudentId(),
         student_name: studentName.trim() || null,
         ratings,
         comments: comments.trim() || null
       };
 
+      console.log('Submitting feedback data:', feedbackData);
       await axios.post(`${API}/feedback`, feedbackData);
 
       // Export to Excel
