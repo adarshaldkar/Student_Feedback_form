@@ -4,18 +4,49 @@ import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
 import morgan from 'morgan';
 import dotenv from 'dotenv';
+import { createServer } from 'http';
+import { Server as SocketIOServer } from 'socket.io';
 import { database } from './services/database';
 
 // Import routes
 import authRoutes from './routes/auth';
 import formsRoutes from './routes/forms';
 import feedbackRoutes from './routes/feedback';
+import fileshareRoutes from './routes/fileshare';
 
 // Load environment variables
 dotenv.config();
 
 const app = express();
+const httpServer = createServer(app);
 const PORT = parseInt(process.env.PORT || '8001', 10);
+
+// Setup Socket.IO
+const io = new SocketIOServer(httpServer, {
+  cors: {
+    origin: true,
+    credentials: true,
+    methods: ["GET", "POST"]
+  }
+});
+
+// Make io available to routes
+app.set('io', io);
+
+// Socket.IO connection handling
+io.on('connection', (socket) => {
+  console.log('User connected:', socket.id);
+  
+  // Join user to their own room for private notifications
+  socket.on('join', (userId) => {
+    socket.join(userId);
+    console.log(`User ${userId} joined their room`);
+  });
+  
+  socket.on('disconnect', () => {
+    console.log('User disconnected:', socket.id);
+  });
+});
 
 // Security middleware
 app.use(helmet());
@@ -60,6 +91,7 @@ app.get('/health', (req, res) => {
 app.use('/api/auth', authRoutes);
 app.use('/api/forms', formsRoutes);
 app.use('/api/feedback', feedbackRoutes);
+app.use('/api/fileshare', fileshareRoutes);
 
 // Add feedback routes to forms router for GET /api/forms/:formId/feedback
 app.use('/api/forms', feedbackRoutes);
@@ -85,10 +117,11 @@ const startServer = async () => {
   try {
     await database.connect();
     
-    app.listen(PORT, '0.0.0.0', () => {
+    httpServer.listen(PORT, '0.0.0.0', () => {
       console.log(`Server running on http://0.0.0.0:${PORT}`);
       console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
       console.log(`MongoDB: ${process.env.MONGO_URL}`);
+      console.log('Socket.IO enabled for real-time features');
     });
   } catch (error) {
     console.error('Failed to start server:', error);
@@ -96,17 +129,17 @@ const startServer = async () => {
   }
 };
 
-// Handle graceful shutdown
-process.on('SIGINT', async () => {
-  console.log('Shutting down server...');
-  await database.disconnect();
-  process.exit(0);
-});
+// Handle graceful shutdown - temporarily commented out for debugging
+// process.on('SIGINT', async () => {
+//   console.log('Shutting down server...');
+//   await database.disconnect();
+//   process.exit(0);
+// });
 
-process.on('SIGTERM', async () => {
-  console.log('Shutting down server...');
-  await database.disconnect();
-  process.exit(0);
-});
+// process.on('SIGTERM', async () => {
+//   console.log('Shutting down server...');
+//   await database.disconnect();
+//   process.exit(0);
+// });
 
 startServer();

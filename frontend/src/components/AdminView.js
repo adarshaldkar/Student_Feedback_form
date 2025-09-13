@@ -9,13 +9,18 @@ import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 import { Badge } from './ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs';
 import { Alert, AlertDescription } from './ui/alert';
+import Footer from './Footer';
+import FileSharing from './FileSharing';
 
-import { Plus, Trash2, Download, Upload, Link, Copy, Loader2, LogOut, Edit, AlertTriangle, FileText, RefreshCw, Sparkles, Save, BookOpen, X, Settings, PlusCircle } from 'lucide-react';
+import { Plus, Trash2, Download, Upload, Link, Copy, Loader2, LogOut, Edit, AlertTriangle, FileText, RefreshCw, Sparkles, Save, BookOpen, X, Settings, PlusCircle, Share } from 'lucide-react';
 import { toast } from 'sonner';
 
 
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || 'https://students-feedback-system-3.onrender.com';
+// Force localhost for development
+const BACKEND_URL = 'http://localhost:8001';
 const API = `${BACKEND_URL}/api`;
+console.log('AdminView - Backend URL:', BACKEND_URL);
+console.log('AdminView - API base:', API);
 
 // Standard Evaluation Criteria
 const STANDARD_EVALUATION_CRITERIA = [
@@ -941,7 +946,7 @@ const AdminView = () => {
         )}
 
         <Tabs defaultValue="create" className="space-y-4 sm:space-y-6">
-          <TabsList className="grid w-full grid-cols-2 lg:grid-cols-4 gap-2 p-2 h-auto" style={{
+          <TabsList className="grid w-full grid-cols-2 lg:grid-cols-5 gap-2 p-2 h-auto" style={{
             display: 'grid',
             width: '100%',
             gridTemplateColumns: 'repeat(2, 1fr)',
@@ -949,7 +954,7 @@ const AdminView = () => {
             padding: '0.5rem',
             height: 'auto',
             '@media (min-width: 1024px)': {
-              gridTemplateColumns: 'repeat(4, 1fr)'
+              gridTemplateColumns: 'repeat(5, 1fr)'
             }
           }}>
             <TabsTrigger value="create" className="text-xs sm:text-sm lg:text-base font-medium px-2 sm:px-4 py-2 whitespace-nowrap" style={{
@@ -995,6 +1000,17 @@ const AdminView = () => {
               whiteSpace: 'nowrap'
             }}>
               Export Data
+            </TabsTrigger>
+            <TabsTrigger value="fileshare" className="text-xs sm:text-sm lg:text-base font-medium px-2 sm:px-4 py-2 whitespace-nowrap" style={{
+              fontSize: '0.75rem',
+              fontWeight: '500',
+              paddingLeft: '0.5rem',
+              paddingRight: '0.5rem',
+              paddingTop: '0.5rem',
+              paddingBottom: '0.5rem',
+              whiteSpace: 'nowrap'
+            }}>
+              File Share
             </TabsTrigger>
           </TabsList>
 
@@ -1901,6 +1917,24 @@ const AdminView = () => {
                     <p className="text-gray-500 text-sm sm:text-base">Use the individual export buttons in the "Manage Forms" tab to export data per section.</p>
                   </div>
                 </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          {/* File Sharing */}
+          <TabsContent value="fileshare">
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-lg sm:text-xl flex items-center space-x-2">
+                  <Share className="h-5 w-5 text-blue-600" />
+                  <span>File Sharing System</span>
+                </CardTitle>
+                <p className="text-sm text-gray-600 mt-1">
+                  Share Excel files with other admins and communicate in real-time
+                </p>
+              </CardHeader>
+              <CardContent>
+                <FileSharing />
               </CardContent>
             </Card>
           </TabsContent>
