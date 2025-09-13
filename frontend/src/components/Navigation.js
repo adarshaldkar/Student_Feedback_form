@@ -13,6 +13,7 @@ const Navigation = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   
   const isAdminView = location.pathname.includes('/admin');
+  const isStudentView = location.pathname.includes('/student');
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -27,7 +28,7 @@ const Navigation = () => {
       <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-6">
         <div className="flex items-center py-3 sm:py-4">
           {/* Logo/Brand */}
-          <div className="cursor-pointer flex-1 flex items-center gap-3" onClick={() => navigate('/')}>
+          <div className="cursor-pointer flex-1 flex items-center gap-3">
             <div className="flex items-center gap-3">
               <img 
                 src="/college_logo_1.jpg" 
@@ -96,15 +97,17 @@ const Navigation = () => {
               </>
             ) : (
               <>
-                <Button
-                  variant="default"
-                  onClick={() => navigate('/admin-login')}
-                  className="flex items-center gap-2 text-sm"
-                  size="sm"
-                >
-                  <Shield className="h-4 w-4" />
-                  Admin
-                </Button>
+                {!isStudentView && (
+                  <Button
+                    variant="default"
+                    onClick={() => navigate('/admin-login')}
+                    className="flex items-center gap-2 text-sm"
+                    size="sm"
+                  >
+                    <Shield className="h-4 w-4" />
+                    Admin
+                  </Button>
+                )}
               </>
             )}
           </div>
@@ -172,15 +175,17 @@ const Navigation = () => {
                 </>
               ) : (
                 <>
-                  <Button
-                    variant="default"
-                    onClick={() => { navigate('/admin-login'); closeMobileMenu(); }}
-                    className="w-full justify-start gap-2"
-                    size="sm"
-                  >
-                    <Shield className="h-4 w-4" />
-                    Admin Login
-                  </Button>
+                  {!isStudentView && (
+                    <Button
+                      variant="default"
+                      onClick={() => { navigate('/admin-login'); closeMobileMenu(); }}
+                      className="w-full justify-start gap-2"
+                      size="sm"
+                    >
+                      <Shield className="h-4 w-4" />
+                      Admin Login
+                    </Button>
+                  )}
                 </>
               )}
             </div>

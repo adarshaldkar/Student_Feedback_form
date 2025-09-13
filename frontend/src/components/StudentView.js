@@ -32,10 +32,16 @@ const StudentView = () => {
   const [formData, setFormData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
+<<<<<<< HEAD
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [studentId, setStudentId] = useState("");
   const [studentName, setStudentName] = useState("");
+=======
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
+  const [studentName, setStudentName] = useState('');
+>>>>>>> f7b5e7455f9e1b03e636b045e12efb15658db493
   const [ratings, setRatings] = useState({});
   const [comments, setComments] = useState("");
 
@@ -65,7 +71,9 @@ const StudentView = () => {
   const fetchFormData = async () => {
     try {
       setLoading(true);
+      console.log('Fetching form data for formId:', formId);
       const response = await axios.get(`${API}/forms/${formId}`);
+      console.log('Form data received:', response.data);
       setFormData(response.data);
       setError("");
     } catch (error) {
@@ -101,23 +109,42 @@ const StudentView = () => {
   };
 
   const handleSubmit = async () => {
+<<<<<<< HEAD
     if (!studentId.trim()) {
       setError("Please enter your Student ID");
+=======
+    // Basic validation
+    if (!studentName.trim()) {
+      setError('Please enter your name');
+>>>>>>> f7b5e7455f9e1b03e636b045e12efb15658db493
       return;
     }
-
+    
+    if (!comments.trim()) {
+      setError('Please provide some comments');
+      return;
+    }
+    
     setSubmitting(true);
     setError("");
 
     try {
+      // Generate a unique student_id based on name and timestamp
+      const generateStudentId = () => {
+        const name = studentName.trim().toLowerCase().replace(/\s+/g, '_');
+        const timestamp = Date.now().toString().slice(-6);
+        return `${name}_${timestamp}`;
+      };
+      
       const feedbackData = {
         form_id: formId,
-        student_id: studentId.trim(),
+        student_id: generateStudentId(),
         student_name: studentName.trim() || null,
         ratings,
         comments: comments.trim() || null,
       };
 
+      console.log('Submitting feedback data:', feedbackData);
       await axios.post(`${API}/feedback`, feedbackData);
 
       // Export to Excel
@@ -131,10 +158,16 @@ const StudentView = () => {
       });
 
       // Reset form
+<<<<<<< HEAD
       setStudentId("");
       setStudentName("");
       setComments("");
       setSuccess(""); // Clear any existing success message
+=======
+      setStudentName('');
+      setComments('');
+      setSuccess(''); // Clear any existing success message
+>>>>>>> f7b5e7455f9e1b03e636b045e12efb15658db493
       const initialRatings = {};
       formData.subjects.forEach((subject) => {
         initialRatings[subject] = {};
@@ -169,6 +202,7 @@ const StudentView = () => {
 
     // Create main feedback sheet
     const worksheetData = [
+<<<<<<< HEAD
       ["Student ID", feedbackData.student_id],
       ["Student Name", feedbackData.student_name || "Not provided"],
       ["Form", formData.title],
@@ -178,6 +212,16 @@ const StudentView = () => {
       ["Submitted On", new Date().toLocaleString()],
       [""],
       ["Evaluation Criteria", ...formData.subjects],
+=======
+      ['Student Name', feedbackData.student_name || 'Not provided'],
+      ['Form', formData.title],
+      ['Year', formData.year],
+      ['Section', formData.section],
+      ['Department', formData.department],
+      ['Submitted On', new Date().toLocaleString()],
+      [''],
+      ['Evaluation Criteria', ...formData.subjects],
+>>>>>>> f7b5e7455f9e1b03e636b045e12efb15658db493
     ];
 
     formData.evaluation_criteria.forEach((criteria) => {
@@ -204,7 +248,7 @@ const StudentView = () => {
     XLSX.utils.book_append_sheet(workbook, worksheet, "Feedback");
 
     // // Download file
-    // const fileName = `Feedback_${formData.year}_${formData.department}_${formData.section}_${feedbackData.student_id}.xlsx`;
+    // const fileName = `Feedback_${formData.year}_${formData.department}_${formData.section}_${feedbackData.student_name || 'Anonymous'}.xlsx`;
     // XLSX.writeFile(workbook, fileName);
   };
 
@@ -281,6 +325,7 @@ const StudentView = () => {
               </Alert>
             )}
 
+<<<<<<< HEAD
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 sm:gap-4 mb-4 sm:mb-6">
               <div>
                 <Label
@@ -299,6 +344,9 @@ const StudentView = () => {
                   className="h-10 sm:h-11"
                 />
               </div>
+=======
+            <div className="mb-4 sm:mb-6">
+>>>>>>> f7b5e7455f9e1b03e636b045e12efb15658db493
               <div>
                 <Label
                   htmlFor="studentName"
@@ -313,7 +361,7 @@ const StudentView = () => {
                   value={studentName}
                   onChange={(e) => setStudentName(e.target.value)}
                   disabled={submitting}
-                  className="h-10 sm:h-11"
+                  className="h-10 sm:h-11 max-w-md"
                 />
               </div>
             </div>
@@ -355,12 +403,18 @@ const StudentView = () => {
                               >
                                 <SelectValue />
                               </SelectTrigger>
+<<<<<<< HEAD
                               <SelectContent>
                                 {ratingScale.map((scale) => (
                                   <SelectItem
                                     key={scale.value}
                                     value={scale.value.toString()}
                                   >
+=======
+                              <SelectContent className="z-50">
+                                {ratingScale.map(scale => (
+                                  <SelectItem key={scale.value} value={scale.value.toString()}>
+>>>>>>> f7b5e7455f9e1b03e636b045e12efb15658db493
                                     {scale.value} - {scale.label}
                                   </SelectItem>
                                 ))}
@@ -385,6 +439,7 @@ const StudentView = () => {
                 ))}
               </div>
 
+<<<<<<< HEAD
               {/* Desktop View - Table Layout */}
               <div
                 className="hidden lg:block"
@@ -395,17 +450,27 @@ const StudentView = () => {
                   style={{ WebkitOverflowScrolling: "touch" }}
                 >
                   <div className="min-w-[1000px]" style={{ width: "100%" }}>
+=======
+            {/* Desktop View - Table Layout */}
+              <div className="hidden lg:block" style={{width: '100%', overflowX: 'auto'}}>
+                <div className="overflow-x-auto table-responsive -mx-3 sm:-mx-4 lg:-mx-6 xl:-mx-8 px-3 sm:px-4 lg:px-6 xl:px-8" style={{WebkitOverflowScrolling: 'touch'}}>
+                  <div className="min-w-[1200px]" style={{width: '100%'}}>
+>>>>>>> f7b5e7455f9e1b03e636b045e12efb15658db493
                     <table className="w-full border-collapse">
                       <thead>
                         <tr>
-                          <th className="sticky left-0 bg-gray-100 p-3 text-left font-medium text-gray-700 border border-gray-300 w-64">
+                          <th className="sticky left-0 bg-gray-100 p-4 text-left font-medium text-gray-700 border border-gray-300 w-64">
                             Evaluation Criteria
                           </th>
                           {formData?.subjects.map((subject) => (
+<<<<<<< HEAD
                             <th
                               key={subject}
                               className="p-3 text-center font-medium text-gray-700 border border-gray-300 min-w-32"
                             >
+=======
+                            <th key={subject} className="p-4 text-center font-medium text-gray-700 border border-gray-300 min-w-40">
+>>>>>>> f7b5e7455f9e1b03e636b045e12efb15658db493
                               {subject}
                             </th>
                           ))}
@@ -414,10 +479,11 @@ const StudentView = () => {
                       <tbody>
                         {formData?.evaluation_criteria.map((criteria) => (
                           <tr key={criteria} className="hover:bg-gray-50">
-                            <td className="sticky left-0 bg-white p-3 text-sm text-gray-900 border border-gray-300 font-medium">
+                            <td className="sticky left-0 bg-white p-4 text-sm text-gray-900 border border-gray-300 font-medium align-middle">
                               {criteria}
                             </td>
                             {formData.subjects.map((subject) => (
+<<<<<<< HEAD
                               <td
                                 key={`${criteria}-${subject}`}
                                 className="p-3 border border-gray-300 text-center"
@@ -452,20 +518,46 @@ const StudentView = () => {
                                     ))}
                                   </SelectContent>
                                 </Select>
+=======
+                              <td key={`${criteria}-${subject}`} className="p-4 border border-gray-300 text-center align-middle">
+                                <div className="flex justify-center items-center">
+                                  <Select
+                                    value={ratings[subject]?.[criteria]?.toString() || '5'}
+                                    onValueChange={(value) => handleRatingChange(subject, criteria, value)}
+                                    disabled={submitting}
+                                  >
+                                    <SelectTrigger className={`w-20 h-10 text-white font-medium ${getRatingColor(parseInt(ratings[subject]?.[criteria] || 5))}`}>
+                                      <SelectValue />
+                                    </SelectTrigger>
+                                    <SelectContent className="z-50">
+                                      {ratingScale.map(scale => (
+                                        <SelectItem key={scale.value} value={scale.value.toString()}>
+                                          {scale.value} - {scale.label}
+                                        </SelectItem>
+                                      ))}
+                                    </SelectContent>
+                                  </Select>
+                                </div>
+>>>>>>> f7b5e7455f9e1b03e636b045e12efb15658db493
                               </td>
                             ))}
                           </tr>
                         ))}
                         {/* Average Row */}
                         <tr className="bg-blue-50">
-                          <td className="sticky left-0 bg-blue-100 p-3 text-sm font-bold text-gray-900 border border-gray-300">
+                          <td className="sticky left-0 bg-blue-100 p-4 text-sm font-bold text-gray-900 border border-gray-300 align-middle">
                             Your Average Rating
                           </td>
+<<<<<<< HEAD
                           {formData?.subjects.map((subject) => (
                             <td
                               key={`avg-${subject}`}
                               className="p-3 border border-gray-300 text-center"
                             >
+=======
+                          {formData?.subjects.map(subject => (
+                            <td key={`avg-${subject}`} className="p-4 border border-gray-300 text-center align-middle">
+>>>>>>> f7b5e7455f9e1b03e636b045e12efb15658db493
                               <span className="text-lg font-bold text-blue-600">
                                 {calculateAverage(subject)}
                               </span>
@@ -536,6 +628,7 @@ const StudentView = () => {
           </CardContent>
         </Card>
 
+<<<<<<< HEAD
         {/* Footer */}
         <footer className="mt-16 pt-8 border-t border-gray-200 bg-white rounded-lg shadow-sm">
           <div className="max-w-4xl mx-auto px-6">
@@ -652,6 +745,10 @@ const StudentView = () => {
             </div>
           </div>
         </footer>
+=======
+        
+        
+>>>>>>> f7b5e7455f9e1b03e636b045e12efb15658db493
       </div>
 
       {/* Footer */}
