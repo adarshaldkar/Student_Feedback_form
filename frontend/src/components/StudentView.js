@@ -32,16 +32,9 @@ const StudentView = () => {
   const [formData, setFormData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
-<<<<<<< HEAD
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
-  const [studentId, setStudentId] = useState("");
   const [studentName, setStudentName] = useState("");
-=======
-  const [error, setError] = useState('');
-  const [success, setSuccess] = useState('');
-  const [studentName, setStudentName] = useState('');
->>>>>>> f7b5e7455f9e1b03e636b045e12efb15658db493
   const [ratings, setRatings] = useState({});
   const [comments, setComments] = useState("");
 
@@ -109,14 +102,9 @@ const StudentView = () => {
   };
 
   const handleSubmit = async () => {
-<<<<<<< HEAD
-    if (!studentId.trim()) {
-      setError("Please enter your Student ID");
-=======
     // Basic validation
     if (!studentName.trim()) {
       setError('Please enter your name');
->>>>>>> f7b5e7455f9e1b03e636b045e12efb15658db493
       return;
     }
     
@@ -158,16 +146,9 @@ const StudentView = () => {
       });
 
       // Reset form
-<<<<<<< HEAD
-      setStudentId("");
-      setStudentName("");
-      setComments("");
-      setSuccess(""); // Clear any existing success message
-=======
       setStudentName('');
       setComments('');
       setSuccess(''); // Clear any existing success message
->>>>>>> f7b5e7455f9e1b03e636b045e12efb15658db493
       const initialRatings = {};
       formData.subjects.forEach((subject) => {
         initialRatings[subject] = {};
