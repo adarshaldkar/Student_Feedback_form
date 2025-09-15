@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { useAuth } from '../contexts/AuthContext';
+import { useAuth } from '../contexts/AppwriteAuthContext';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Label } from './ui/label';
@@ -14,6 +14,7 @@ import Footer from './Footer';
 
 
 const Register = () => {
+  const [name, setName] = useState('');
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -45,17 +46,18 @@ const Register = () => {
       return;
     }
 
-    const result = await register(username, email, password, 'admin');
-    
-    if (result.success) {
+    try {
+      await register(email, password, name, username);
+      
       toast.success('Account created', {
         description: 'Welcome! Redirecting to admin dashboard...',
         duration: 2500,
       });
       navigate('/admin');
-    } else {
-      setError(result.error);
-      toast.error('Registration failed', { description: result.error, duration: 4000 });
+    } catch (error) {
+      const errorMessage = error.message || 'Registration failed';
+      setError(errorMessage);
+      toast.error('Registration failed', { description: errorMessage, duration: 4000 });
     }
     
     setLoading(false);
@@ -82,6 +84,19 @@ const Register = () => {
                 </Alert>
               )}
               
+              <div className="space-y-2">
+                <Label htmlFor="name">Full Name</Label>
+                <Input
+                  id="name"
+                  type="text"
+                  placeholder="Enter your full name"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  required
+                  disabled={loading}
+                />
+              </div>
+
               <div className="space-y-2">
                 <Label htmlFor="username">Username</Label>
                 <Input

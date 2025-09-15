@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { useAuth } from '../contexts/AuthContext';
+import { useAuth } from '../contexts/AppwriteAuthContext';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Label } from './ui/label';
@@ -14,7 +14,7 @@ import Footer from './Footer';
 
 
 const Login = ({ role = 'admin' }) => {
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -27,27 +27,24 @@ const Login = ({ role = 'admin' }) => {
     setLoading(true);
     setError('');
 
-    const result = await login(username, password);
-    
-    if (result.success) {
+    try {
+      await login(email, password);
+      
       toast.success('Signed in successfully', {
-        description: result.role === 'admin' ? 'Redirecting to admin dashboard...' : 'Redirecting...',
+        description: 'Redirecting to admin dashboard...',
         duration: 2500,
       });
-      if (result.role === 'admin') {
-        navigate('/admin');
-      } else {
-        navigate('/');
-      }
-    } else {
-      setError(result.error);
+      navigate('/admin');
+    } catch (error) {
+      const errorMessage = error.message || 'Login failed';
+      setError(errorMessage);
       toast.error('Sign in failed', {
-        description: result.error,
+        description: errorMessage,
         duration: 4000,
       });
+    } finally {
+      setLoading(false);
     }
-    
-    setLoading(false);
   };
 
   const isAdminLogin = role === 'admin';
@@ -73,13 +70,13 @@ const Login = ({ role = 'admin' }) => {
             )}
             
             <div className="space-y-2">
-              <Label htmlFor="username">Username</Label>
+              <Label htmlFor="email">Email</Label>
               <Input
-                id="username"
-                type="text"
-                placeholder="Enter your username"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
+                id="email"
+                type="email"
+                placeholder="Enter your email address"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 required
                 disabled={loading}
               />

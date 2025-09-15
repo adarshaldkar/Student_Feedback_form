@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { useAuth } from '../contexts/AuthContext';
+import { useAuth } from '../contexts/AppwriteAuthContext';
 import { Button } from './ui/button';
 import { Badge } from './ui/badge';
 import { User, Shield, LogOut, Home, Menu, X } from 'lucide-react';
@@ -9,7 +9,7 @@ import { User, Shield, LogOut, Home, Menu, X } from 'lucide-react';
 const Navigation = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { user, logout, isAuthenticated, isAdmin } = useAuth();
+  const { user, logout, isAuthenticated, isAdmin, getUsername } = useAuth();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   
   const isAdminView = location.pathname.includes('/admin');
@@ -58,7 +58,7 @@ const Navigation = () => {
             {isAuthenticated ? (
               <>
                 <span className="text-sm text-gray-600 mr-2 max-w-32 truncate">
-                  Welcome, <span className="font-medium text-blue-600">{user?.username}</span>
+                  Welcome, <span className="font-medium text-blue-600">{getUsername()}</span>
                 </span>
                 
                 {!isAdmin && (
@@ -136,7 +136,7 @@ const Navigation = () => {
               {isAuthenticated ? (
                 <>
                   <div className="px-3 py-2 text-sm text-gray-600 border-b">
-                    Welcome, <span className="font-medium text-blue-600">{user?.username}</span>
+                    Welcome, <span className="font-medium text-blue-600">{getUsername()}</span>
                   </div>
                   
                   {!isAdmin && (

@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import "./App.css";
 import { HashRouter, Routes, Route, Navigate } from "react-router-dom";
-import { AuthProvider } from "./contexts/AuthContext";
+import { AuthProvider } from "./contexts/AppwriteAuthContext";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Navigation from "./components/Navigation";
 import HomePage from "./components/HomePage";
@@ -9,6 +9,7 @@ import StudentView from "./components/StudentView";
 import AdminView from "./components/AdminView";
 import Login from "./components/Login";
 import Register from "./components/Register";
+import AppwriteTest from "./components/AppwriteTest";
 import { Toaster } from "./components/ui/toaster";
 import { Toaster as SonnerToaster } from "sonner";
 
@@ -50,6 +51,9 @@ function App() {
                 </ProtectedRoute>
               }
             />
+            
+            {/* Appwrite Test Route (for development/testing) */}
+            <Route path="/appwrite-test" element={<AppwriteTest />} />
             
             {/* Redirect old routes */}
             <Route path="/login" element={<Navigate to="/admin-login" replace />} />

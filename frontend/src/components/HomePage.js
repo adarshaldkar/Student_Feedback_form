@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { useAuth } from "../contexts/AuthContext";
+import { useAuth } from "../contexts/AppwriteAuthContext";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
@@ -27,14 +27,14 @@ const API = `${BACKEND_URL}/api`;
 
 const HomePage = () => {
   const navigate = useNavigate();
-  const { user, isAuthenticated } = useAuth();
+  const { user, userDocument, isAuthenticated, isAdmin, getUsername } = useAuth();
   const [forms, setForms] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [directFormId, setDirectFormId] = useState("");
 
   useEffect(() => {
-    if (isAuthenticated && user?.role === "admin") {
+    if (isAuthenticated && isAdmin()) {
       navigate("/admin");
     }
   }, [isAuthenticated, user, navigate]);
@@ -328,7 +328,7 @@ const HomePage = () => {
         <Card>
           <CardHeader className="px-4 sm:px-6">
             <CardTitle className="text-lg sm:text-xl">
-              Welcome, {user?.username}!
+              Welcome, {getUsername()}!
             </CardTitle>
           </CardHeader>
           <CardContent className="px-4 sm:px-6">

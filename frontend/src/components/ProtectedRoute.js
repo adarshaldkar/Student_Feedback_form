@@ -1,10 +1,10 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
-import { useAuth } from '../contexts/AuthContext';
+import { useAuth } from '../contexts/AppwriteAuthContext';
 import { Loader2 } from 'lucide-react';
 
 const ProtectedRoute = ({ children, adminOnly = false }) => {
-  const { user, loading, isAuthenticated } = useAuth();
+  const { user, userDocument, loading, isAuthenticated, isAdmin } = useAuth();
 
   if (loading) {
     return (
@@ -21,7 +21,7 @@ const ProtectedRoute = ({ children, adminOnly = false }) => {
     return <Navigate to="/admin-login" replace />;
   }
 
-  if (adminOnly && user?.role !== 'admin') {
+  if (adminOnly && !isAdmin()) {
     return <Navigate to="/admin-login" replace />;
   }
 
