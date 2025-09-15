@@ -4,6 +4,7 @@ import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
 import morgan from 'morgan';
 import dotenv from 'dotenv';
+import path from 'path';
 import { createServer } from 'http';
 import { Server as SocketIOServer } from 'socket.io';
 import { database } from './services/database';
@@ -14,8 +15,15 @@ import formsRoutes from './routes/forms';
 import feedbackRoutes from './routes/feedback';
 import fileshareRoutes from './routes/fileshare';
 
-// Load environment variables
-dotenv.config();
+// Load environment variables with explicit path
+dotenv.config({ path: path.resolve(__dirname, '../.env') });
+
+// Debug: Print environment variables
+console.log('Environment variables loaded:');
+console.log('MONGO_URL:', process.env.MONGO_URL ? 'Set' : 'NOT SET');
+console.log('DB_NAME:', process.env.DB_NAME || 'NOT SET');
+console.log('NODE_ENV:', process.env.NODE_ENV || 'NOT SET');
+console.log('PORT:', process.env.PORT || 'NOT SET');
 
 const app = express();
 const httpServer = createServer(app);
