@@ -9,7 +9,7 @@ import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 import { Badge } from './ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs';
 import { Alert, AlertDescription } from './ui/alert';
-// import Footer from './Footer';
+import Footer from './Footer';
 import FileSharing from './FileSharing';
 
 import { Plus, Trash2, Download, Upload, Link, Copy, Loader2, LogOut, Edit, AlertTriangle, FileText, RefreshCw, Sparkles, Save, BookOpen, X, Settings, PlusCircle, Share } from 'lucide-react';

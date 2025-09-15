@@ -32,15 +32,9 @@ const StudentView = () => {
   const [formData, setFormData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
-<<<<<<< HEAD
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [studentName, setStudentName] = useState("");
-=======
-  const [error, setError] = useState('');
-  const [success, setSuccess] = useState('');
-  const [studentName, setStudentName] = useState('');
->>>>>>> f7b5e7455f9e1b03e636b045e12efb15658db493
   const [ratings, setRatings] = useState({});
   const [comments, setComments] = useState("");
 
@@ -108,10 +102,6 @@ const StudentView = () => {
   };
 
   const handleSubmit = async () => {
-<<<<<<< HEAD
-    if (!studentId.trim()) {
-      setError("Please enter your Student ID");
-=======
     // Basic validation
     if (!studentName.trim()) {
       setError('Please enter your name');
@@ -156,16 +146,9 @@ const StudentView = () => {
       });
 
       // Reset form
-<<<<<<< HEAD
-      setStudentId("");
-      setStudentName("");
-      setComments("");
-      setSuccess(""); // Clear any existing success message
-=======
       setStudentName('');
       setComments('');
       setSuccess(''); // Clear any existing success message
->>>>>>> f7b5e7455f9e1b03e636b045e12efb15658db493
       const initialRatings = {};
       formData.subjects.forEach((subject) => {
         initialRatings[subject] = {};
@@ -209,7 +192,6 @@ const StudentView = () => {
       ["Submitted On", new Date().toLocaleString()],
       [""],
       ["Evaluation Criteria", ...formData.subjects],
-=======
       ['Student Name', feedbackData.student_name || 'Not provided'],
       ['Form', formData.title],
       ['Year', formData.year],
@@ -218,7 +200,6 @@ const StudentView = () => {
       ['Submitted On', new Date().toLocaleString()],
       [''],
       ['Evaluation Criteria', ...formData.subjects],
->>>>>>> f7b5e7455f9e1b03e636b045e12efb15658db493
     ];
 
     formData.evaluation_criteria.forEach((criteria) => {
@@ -322,28 +303,8 @@ const StudentView = () => {
               </Alert>
             )}
 
-<<<<<<< HEAD
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 sm:gap-4 mb-4 sm:mb-6">
-              <div>
-                <Label
-                  htmlFor="studentId"
-                  className="text-sm font-medium text-gray-700 mb-2 block"
-                >
-                  Student ID / Roll Number (Required) *
-                </Label>
-                <Input
-                  id="studentId"
-                  type="text"
-                  placeholder="Enter your Student ID"
-                  value={studentId}
-                  onChange={(e) => setStudentId(e.target.value)}
-                  disabled={submitting}
-                  className="h-10 sm:h-11"
-                />
-              </div>
-=======
+
             <div className="mb-4 sm:mb-6">
->>>>>>> f7b5e7455f9e1b03e636b045e12efb15658db493
               <div>
                 <Label
                   htmlFor="studentName"
@@ -358,7 +319,7 @@ const StudentView = () => {
                   value={studentName}
                   onChange={(e) => setStudentName(e.target.value)}
                   disabled={submitting}
-                  className="h-10 sm:h-11"
+                  className="h-10 sm:h-11 max-w-md"
                 />
               </div>
             </div>
@@ -400,8 +361,7 @@ const StudentView = () => {
                               >
                                 <SelectValue />
                               </SelectTrigger>
-<<<<<<< HEAD
-                              <SelectContent>
+                              <SelectContent className="z-50">
                                 {ratingScale.map((scale) => (
                                   <SelectItem
                                     key={scale.value}
@@ -431,19 +391,7 @@ const StudentView = () => {
                 ))}
               </div>
 
-<<<<<<< HEAD
               {/* Desktop View - Table Layout */}
-              <div
-                className="hidden lg:block"
-                style={{ width: "100%", overflowX: "auto" }}
-              >
-                <div
-                  className="overflow-x-auto table-responsive -mx-3 sm:-mx-4 lg:-mx-6 xl:-mx-8 px-3 sm:px-4 lg:px-6 xl:px-8"
-                  style={{ WebkitOverflowScrolling: "touch" }}
-                >
-                  <div className="min-w-[1000px]" style={{ width: "100%" }}>
-=======
-            {/* Desktop View - Table Layout */}
               <div className="hidden lg:block" style={{width: '100%', overflowX: 'auto'}}>
                 <div className="overflow-x-auto table-responsive -mx-3 sm:-mx-4 lg:-mx-6 xl:-mx-8 px-3 sm:px-4 lg:px-6 xl:px-8" style={{WebkitOverflowScrolling: 'touch'}}>
                   <div className="min-w-[1200px]" style={{width: '100%'}}>
@@ -495,14 +443,8 @@ const StudentView = () => {
                           <td className="sticky left-0 bg-blue-100 p-4 text-sm font-bold text-gray-900 border border-gray-300 align-middle">
                             Your Average Rating
                           </td>
-<<<<<<< HEAD
+
                           {formData?.subjects.map((subject) => (
-                            <td
-                              key={`avg-${subject}`}
-                              className="p-3 border border-gray-300 text-center"
-                            >
-=======
-                          {formData?.subjects.map(subject => (
                             <td key={`avg-${subject}`} className="p-4 border border-gray-300 text-center align-middle">
                               <span className="text-lg font-bold text-blue-600">
                                 {calculateAverage(subject)}
@@ -574,7 +516,7 @@ const StudentView = () => {
           </CardContent>
         </Card>
 
-<<<<<<< HEAD
+
         {/* Footer */}
         <footer className="mt-16 pt-8 border-t border-gray-200 bg-white rounded-lg shadow-sm">
           <div className="max-w-4xl mx-auto px-6">
@@ -691,11 +633,14 @@ const StudentView = () => {
             </div>
           </div>
         </footer>
-=======
+
         
         
->>>>>>> f7b5e7455f9e1b03e636b045e12efb15658db493
+
       </div>
+
+      {/* Footer */}
+      <Footer />
     </div>
   );
 };
