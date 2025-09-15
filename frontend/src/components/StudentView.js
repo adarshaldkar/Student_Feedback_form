@@ -304,25 +304,6 @@ const StudentView = () => {
             )}
 
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 sm:gap-4 mb-4 sm:mb-6">
-              <div>
-                <Label
-                  htmlFor="studentId"
-                  className="text-sm font-medium text-gray-700 mb-2 block"
-                >
-                  Student ID / Roll Number (Required) *
-                </Label>
-                <Input
-                  id="studentId"
-                  type="text"
-                  placeholder="Enter your Student ID"
-                  value={studentId}
-                  onChange={(e) => setStudentId(e.target.value)}
-                  disabled={submitting}
-                  className="h-10 sm:h-11"
-                />
-              </div>
-
             <div className="mb-4 sm:mb-6">
               <div>
                 <Label
@@ -380,17 +361,12 @@ const StudentView = () => {
                               >
                                 <SelectValue />
                               </SelectTrigger>
-                           <SelectContent>
+                              <SelectContent className="z-50">
                                 {ratingScale.map((scale) => (
                                   <SelectItem
                                     key={scale.value}
                                     value={scale.value.toString()}
                                   >
-
-                              <SelectContent className="z-50">
-                                {ratingScale.map(scale => (
-                                  <SelectItem key={scale.value} value={scale.value.toString()}>
-
                                     {scale.value} - {scale.label}
                                   </SelectItem>
                                 ))}
@@ -416,17 +392,6 @@ const StudentView = () => {
               </div>
 
               {/* Desktop View - Table Layout */}
-              <div
-                className="hidden lg:block"
-                style={{ width: "100%", overflowX: "auto" }}
-              >
-                <div
-                  className="overflow-x-auto table-responsive -mx-3 sm:-mx-4 lg:-mx-6 xl:-mx-8 px-3 sm:px-4 lg:px-6 xl:px-8"
-                  style={{ WebkitOverflowScrolling: "touch" }}
-                >
-                  <div className="min-w-[1000px]" style={{ width: "100%" }}>
-
-            {/* Desktop View - Table Layout */}
               <div className="hidden lg:block" style={{width: '100%', overflowX: 'auto'}}>
                 <div className="overflow-x-auto table-responsive -mx-3 sm:-mx-4 lg:-mx-6 xl:-mx-8 px-3 sm:px-4 lg:px-6 xl:px-8" style={{WebkitOverflowScrolling: 'touch'}}>
                   <div className="min-w-[1200px]" style={{width: '100%'}}>
@@ -437,11 +402,6 @@ const StudentView = () => {
                             Evaluation Criteria
                           </th>
                           {formData?.subjects.map((subject) => (
-                            <th
-                              key={subject}
-                              className="p-3 text-center font-medium text-gray-700 border border-gray-300 min-w-32"
-                            >
-
                             <th key={subject} className="p-4 text-center font-medium text-gray-700 border border-gray-300 min-w-40">
                               {subject}
                             </th>
@@ -455,40 +415,6 @@ const StudentView = () => {
                               {criteria}
                             </td>
                             {formData.subjects.map((subject) => (
-                              <td
-                                key={`${criteria}-${subject}`}
-                                className="p-3 border border-gray-300 text-center"
-                              >
-                                <Select
-                                  value={
-                                    ratings[subject]?.[criteria]?.toString() ||
-                                    "5"
-                                  }
-                                  onValueChange={(value) =>
-                                    handleRatingChange(subject, criteria, value)
-                                  }
-                                  disabled={submitting}
-                                >
-                                  <SelectTrigger
-                                    className={`w-16 h-8 mx-auto text-white font-medium ${getRatingColor(
-                                      parseInt(
-                                        ratings[subject]?.[criteria] || 5
-                                      )
-                                    )}`}
-                                  >
-                                    <SelectValue />
-                                  </SelectTrigger>
-                                  <SelectContent>
-                                    {ratingScale.map((scale) => (
-                                      <SelectItem
-                                        key={scale.value}
-                                        value={scale.value.toString()}
-                                      >
-                                        {scale.value} - {scale.label}
-                                      </SelectItem>
-                                    ))}
-                                  </SelectContent>
-                                </Select>
                               <td key={`${criteria}-${subject}`} className="p-4 border border-gray-300 text-center align-middle">
                                 <div className="flex justify-center items-center">
                                   <Select
@@ -500,7 +426,7 @@ const StudentView = () => {
                                       <SelectValue />
                                     </SelectTrigger>
                                     <SelectContent className="z-50">
-                                      {ratingScale.map(scale => (
+                                      {ratingScale.map((scale) => (
                                         <SelectItem key={scale.value} value={scale.value.toString()}>
                                           {scale.value} - {scale.label}
                                         </SelectItem>
@@ -508,7 +434,6 @@ const StudentView = () => {
                                     </SelectContent>
                                   </Select>
                                 </div>
-
                               </td>
                             ))}
                           </tr>
@@ -520,14 +445,7 @@ const StudentView = () => {
                           </td>
 
                           {formData?.subjects.map((subject) => (
-                            <td
-                              key={`avg-${subject}`}
-                              className="p-3 border border-gray-300 text-center"
-                            >
-
-                          {formData?.subjects.map(subject => (
                             <td key={`avg-${subject}`} className="p-4 border border-gray-300 text-center align-middle">
-
                               <span className="text-lg font-bold text-blue-600">
                                 {calculateAverage(subject)}
                               </span>
