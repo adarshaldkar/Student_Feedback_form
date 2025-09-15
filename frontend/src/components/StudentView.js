@@ -32,16 +32,12 @@ const StudentView = () => {
   const [formData, setFormData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
-<<<<<<< HEAD
+
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [studentId, setStudentId] = useState("");
   const [studentName, setStudentName] = useState("");
-=======
-  const [error, setError] = useState('');
-  const [success, setSuccess] = useState('');
-  const [studentName, setStudentName] = useState('');
->>>>>>> f7b5e7455f9e1b03e636b045e12efb15658db493
+
   const [ratings, setRatings] = useState({});
   const [comments, setComments] = useState("");
 
@@ -109,14 +105,14 @@ const StudentView = () => {
   };
 
   const handleSubmit = async () => {
-<<<<<<< HEAD
+    // Basic validation
     if (!studentId.trim()) {
       setError("Please enter your Student ID");
-=======
-    // Basic validation
+      return;
+    }
+    
     if (!studentName.trim()) {
       setError('Please enter your name');
->>>>>>> f7b5e7455f9e1b03e636b045e12efb15658db493
       return;
     }
     
@@ -158,16 +154,11 @@ const StudentView = () => {
       });
 
       // Reset form
-<<<<<<< HEAD
       setStudentId("");
       setStudentName("");
       setComments("");
       setSuccess(""); // Clear any existing success message
-=======
-      setStudentName('');
-      setComments('');
-      setSuccess(''); // Clear any existing success message
->>>>>>> f7b5e7455f9e1b03e636b045e12efb15658db493
+
       const initialRatings = {};
       formData.subjects.forEach((subject) => {
         initialRatings[subject] = {};
@@ -202,7 +193,6 @@ const StudentView = () => {
 
     // Create main feedback sheet
     const worksheetData = [
-<<<<<<< HEAD
       ["Student ID", feedbackData.student_id],
       ["Student Name", feedbackData.student_name || "Not provided"],
       ["Form", formData.title],
@@ -212,16 +202,6 @@ const StudentView = () => {
       ["Submitted On", new Date().toLocaleString()],
       [""],
       ["Evaluation Criteria", ...formData.subjects],
-=======
-      ['Student Name', feedbackData.student_name || 'Not provided'],
-      ['Form', formData.title],
-      ['Year', formData.year],
-      ['Section', formData.section],
-      ['Department', formData.department],
-      ['Submitted On', new Date().toLocaleString()],
-      [''],
-      ['Evaluation Criteria', ...formData.subjects],
->>>>>>> f7b5e7455f9e1b03e636b045e12efb15658db493
     ];
 
     formData.evaluation_criteria.forEach((criteria) => {
@@ -325,7 +305,7 @@ const StudentView = () => {
               </Alert>
             )}
 
-<<<<<<< HEAD
+
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 sm:gap-4 mb-4 sm:mb-6">
               <div>
                 <Label
@@ -344,9 +324,6 @@ const StudentView = () => {
                   className="h-10 sm:h-11"
                 />
               </div>
-=======
-            <div className="mb-4 sm:mb-6">
->>>>>>> f7b5e7455f9e1b03e636b045e12efb15658db493
               <div>
                 <Label
                   htmlFor="studentName"
@@ -361,7 +338,7 @@ const StudentView = () => {
                   value={studentName}
                   onChange={(e) => setStudentName(e.target.value)}
                   disabled={submitting}
-                  className="h-10 sm:h-11 max-w-md"
+                  className="h-10 sm:h-11"
                 />
               </div>
             </div>
@@ -403,18 +380,13 @@ const StudentView = () => {
                               >
                                 <SelectValue />
                               </SelectTrigger>
-<<<<<<< HEAD
+
                               <SelectContent>
                                 {ratingScale.map((scale) => (
                                   <SelectItem
                                     key={scale.value}
                                     value={scale.value.toString()}
                                   >
-=======
-                              <SelectContent className="z-50">
-                                {ratingScale.map(scale => (
-                                  <SelectItem key={scale.value} value={scale.value.toString()}>
->>>>>>> f7b5e7455f9e1b03e636b045e12efb15658db493
                                     {scale.value} - {scale.label}
                                   </SelectItem>
                                 ))}
@@ -439,23 +411,11 @@ const StudentView = () => {
                 ))}
               </div>
 
-<<<<<<< HEAD
+
               {/* Desktop View - Table Layout */}
-              <div
-                className="hidden lg:block"
-                style={{ width: "100%", overflowX: "auto" }}
-              >
-                <div
-                  className="overflow-x-auto table-responsive -mx-3 sm:-mx-4 lg:-mx-6 xl:-mx-8 px-3 sm:px-4 lg:px-6 xl:px-8"
-                  style={{ WebkitOverflowScrolling: "touch" }}
-                >
-                  <div className="min-w-[1000px]" style={{ width: "100%" }}>
-=======
-            {/* Desktop View - Table Layout */}
               <div className="hidden lg:block" style={{width: '100%', overflowX: 'auto'}}>
                 <div className="overflow-x-auto table-responsive -mx-3 sm:-mx-4 lg:-mx-6 xl:-mx-8 px-3 sm:px-4 lg:px-6 xl:px-8" style={{WebkitOverflowScrolling: 'touch'}}>
                   <div className="min-w-[1200px]" style={{width: '100%'}}>
->>>>>>> f7b5e7455f9e1b03e636b045e12efb15658db493
                     <table className="w-full border-collapse">
                       <thead>
                         <tr>
@@ -463,14 +423,7 @@ const StudentView = () => {
                             Evaluation Criteria
                           </th>
                           {formData?.subjects.map((subject) => (
-<<<<<<< HEAD
-                            <th
-                              key={subject}
-                              className="p-3 text-center font-medium text-gray-700 border border-gray-300 min-w-32"
-                            >
-=======
                             <th key={subject} className="p-4 text-center font-medium text-gray-700 border border-gray-300 min-w-40">
->>>>>>> f7b5e7455f9e1b03e636b045e12efb15658db493
                               {subject}
                             </th>
                           ))}
@@ -483,42 +436,6 @@ const StudentView = () => {
                               {criteria}
                             </td>
                             {formData.subjects.map((subject) => (
-<<<<<<< HEAD
-                              <td
-                                key={`${criteria}-${subject}`}
-                                className="p-3 border border-gray-300 text-center"
-                              >
-                                <Select
-                                  value={
-                                    ratings[subject]?.[criteria]?.toString() ||
-                                    "5"
-                                  }
-                                  onValueChange={(value) =>
-                                    handleRatingChange(subject, criteria, value)
-                                  }
-                                  disabled={submitting}
-                                >
-                                  <SelectTrigger
-                                    className={`w-16 h-8 mx-auto text-white font-medium ${getRatingColor(
-                                      parseInt(
-                                        ratings[subject]?.[criteria] || 5
-                                      )
-                                    )}`}
-                                  >
-                                    <SelectValue />
-                                  </SelectTrigger>
-                                  <SelectContent>
-                                    {ratingScale.map((scale) => (
-                                      <SelectItem
-                                        key={scale.value}
-                                        value={scale.value.toString()}
-                                      >
-                                        {scale.value} - {scale.label}
-                                      </SelectItem>
-                                    ))}
-                                  </SelectContent>
-                                </Select>
-=======
                               <td key={`${criteria}-${subject}`} className="p-4 border border-gray-300 text-center align-middle">
                                 <div className="flex justify-center items-center">
                                   <Select
@@ -538,7 +455,6 @@ const StudentView = () => {
                                     </SelectContent>
                                   </Select>
                                 </div>
->>>>>>> f7b5e7455f9e1b03e636b045e12efb15658db493
                               </td>
                             ))}
                           </tr>
@@ -548,16 +464,8 @@ const StudentView = () => {
                           <td className="sticky left-0 bg-blue-100 p-4 text-sm font-bold text-gray-900 border border-gray-300 align-middle">
                             Your Average Rating
                           </td>
-<<<<<<< HEAD
-                          {formData?.subjects.map((subject) => (
-                            <td
-                              key={`avg-${subject}`}
-                              className="p-3 border border-gray-300 text-center"
-                            >
-=======
                           {formData?.subjects.map(subject => (
                             <td key={`avg-${subject}`} className="p-4 border border-gray-300 text-center align-middle">
->>>>>>> f7b5e7455f9e1b03e636b045e12efb15658db493
                               <span className="text-lg font-bold text-blue-600">
                                 {calculateAverage(subject)}
                               </span>
@@ -628,130 +536,9 @@ const StudentView = () => {
           </CardContent>
         </Card>
 
-<<<<<<< HEAD
         {/* Footer */}
-        <footer className="mt-16 pt-8 border-t border-gray-200 bg-white rounded-lg shadow-sm">
-          <div className="max-w-4xl mx-auto px-6">
-            {/* Company Logo and Info */}
-            <div className="text-center mb-8">
-              <div className="mb-6">
-                <img
-                  src="/Company_logo.png"
-                  alt="Company Logo"
-                  className="h-32 w-auto mx-auto mb-4"
-                  onError={(e) => {
-                    e.target.style.display = "none";
-                    e.target.nextSibling.style.display = "block";
-                  }}
-                />
-              </div>
-
-              <p className="text-sm text-gray-600 mb-4 max-w-2xl mx-auto">
-                Secure • Easy to use • Comprehensive feedback collection
-                platform
-              </p>
-              <div className="text-sm text-gray-600 mb-6">
-                <p className="mb-2 flex items-center justify-center gap-2">
-                  <Phone className="h-4 w-4 text-blue-600" />
-                  Contact Support:{" "}
-                  <a
-                    href="tel:+918248622746"
-                    className="text-blue-600 hover:text-blue-800 font-medium transition-colors"
-                  >
-                    +91 82486 22746
-                  </a>
-                </p>
-                <p className="text-xs text-gray-500">
-                  Available Monday to Friday, 9:00 AM - 6:00 PM
-                </p>
-              </div>
-              <div className="text-sm text-gray-600 mb-6">
-                <p className="mb-2 flex items-center justify-center gap-2">
-                  <Phone className="h-4 w-4 text-blue-600" />
-                  {/* Contact Support: <a href="tel:+918248622746" className="text-blue-600 hover:text-blue-800 font-medium transition-colors">+91 82486 22746</a> */}
-                  Contact Support:{" "}
-                  <a
-                    href="tel:+91 7010664806"
-                    className="text-blue-600 hover:text-blue-800 font-medium transition-colors"
-                  >
-                    +91 7010664806
-                  </a>
-                </p>
-                <p className="text-xs text-gray-500">
-                  Available Monday to Friday, 9:00 AM - 6:00 PM
-                </p>
-              </div>
-            </div>
-
-            {/* Developers Section */}
-            <div className="grid grid-cols-2 gap-3 sm:gap-4 md:gap-6 mb-8">
-              <div className="text-center p-4 bg-gray-50 rounded-lg">
-                <div className="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-3">
-                  <Users className="h-6 w-6 text-white" />
-                </div>
-                <h4 className="font-semibold text-gray-900 mb-2">
-                  Adarsh Patel
-                </h4>
-                <p className="text-sm text-gray-600 mb-3">
-                  Full Stack Developer
-                </p>
-                <a
-                  href="https://www.linkedin.com/in/adarsh-patel14/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-800 transition-colors"
-                >
-                  <Linkedin className="h-4 w-4" />
-                  Connect on LinkedIn
-                </a>
-              </div>
-
-              <div className="text-center p-4 bg-gray-50 rounded-lg">
-                <div className="w-12 h-12 bg-green-600 rounded-full flex items-center justify-center mx-auto mb-3">
-                  <Users className="h-6 w-6 text-white" />
-                </div>
-                <h4 className="font-semibold text-gray-900 mb-2">
-                  Praveen Kumar
-                </h4>
-                <p className="text-sm text-gray-600 mb-3">
-                  Full Stack Developer
-                </p>
-                <a
-                  href="https://www.linkedin.com/in/praveenkumar-fullstackdeveloper/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-green-600 hover:text-green-800 transition-colors"
-                >
-                  <Linkedin className="h-4 w-4" />
-                  Connect on LinkedIn
-                </a>
-              </div>
-            </div>
-
-            {/* Bottom Footer */}
-            <div className="border-t border-gray-200 pt-6 pb-6">
-              <div className="flex flex-col md:flex-row justify-between items-center text-sm text-gray-500">
-                <div className="mb-4 md:mb-0">
-                  <p className="flex items-center gap-1">
-                    Made with{" "}
-                    <Heart className="h-4 w-4 text-red-500 fill-current" /> by
-                    our development team
-                  </p>
-                </div>
-                <div className="flex items-center gap-4">
-                  <span>© {new Date().getFullYear()} All rights reserved</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </footer>
-=======
-        
-        
->>>>>>> f7b5e7455f9e1b03e636b045e12efb15658db493
+        <Footer />
       </div>
-
-      {/* Footer */}
     </div>
   );
 };
