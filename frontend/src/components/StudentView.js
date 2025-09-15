@@ -303,7 +303,7 @@ const StudentView = () => {
               </Alert>
             )}
 
-<<<<<<< HEAD
+
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 sm:gap-4 mb-4 sm:mb-6">
               <div>
                 <Label
@@ -322,9 +322,8 @@ const StudentView = () => {
                   className="h-10 sm:h-11"
                 />
               </div>
-=======
+
             <div className="mb-4 sm:mb-6">
->>>>>>> f7b5e7455f9e1b03e636b045e12efb15658db493
               <div>
                 <Label
                   htmlFor="studentName"
@@ -381,18 +380,17 @@ const StudentView = () => {
                               >
                                 <SelectValue />
                               </SelectTrigger>
-<<<<<<< HEAD
-                              <SelectContent>
+                           <SelectContent>
                                 {ratingScale.map((scale) => (
                                   <SelectItem
                                     key={scale.value}
                                     value={scale.value.toString()}
                                   >
-=======
+
                               <SelectContent className="z-50">
                                 {ratingScale.map(scale => (
                                   <SelectItem key={scale.value} value={scale.value.toString()}>
->>>>>>> f7b5e7455f9e1b03e636b045e12efb15658db493
+
                                     {scale.value} - {scale.label}
                                   </SelectItem>
                                 ))}
@@ -417,7 +415,6 @@ const StudentView = () => {
                 ))}
               </div>
 
-<<<<<<< HEAD
               {/* Desktop View - Table Layout */}
               <div
                 className="hidden lg:block"
@@ -428,12 +425,11 @@ const StudentView = () => {
                   style={{ WebkitOverflowScrolling: "touch" }}
                 >
                   <div className="min-w-[1000px]" style={{ width: "100%" }}>
-=======
+
             {/* Desktop View - Table Layout */}
               <div className="hidden lg:block" style={{width: '100%', overflowX: 'auto'}}>
                 <div className="overflow-x-auto table-responsive -mx-3 sm:-mx-4 lg:-mx-6 xl:-mx-8 px-3 sm:px-4 lg:px-6 xl:px-8" style={{WebkitOverflowScrolling: 'touch'}}>
                   <div className="min-w-[1200px]" style={{width: '100%'}}>
->>>>>>> f7b5e7455f9e1b03e636b045e12efb15658db493
                     <table className="w-full border-collapse">
                       <thead>
                         <tr>
@@ -441,14 +437,12 @@ const StudentView = () => {
                             Evaluation Criteria
                           </th>
                           {formData?.subjects.map((subject) => (
-<<<<<<< HEAD
                             <th
                               key={subject}
                               className="p-3 text-center font-medium text-gray-700 border border-gray-300 min-w-32"
                             >
-=======
+
                             <th key={subject} className="p-4 text-center font-medium text-gray-700 border border-gray-300 min-w-40">
->>>>>>> f7b5e7455f9e1b03e636b045e12efb15658db493
                               {subject}
                             </th>
                           ))}
@@ -461,7 +455,6 @@ const StudentView = () => {
                               {criteria}
                             </td>
                             {formData.subjects.map((subject) => (
-<<<<<<< HEAD
                               <td
                                 key={`${criteria}-${subject}`}
                                 className="p-3 border border-gray-300 text-center"
@@ -496,7 +489,6 @@ const StudentView = () => {
                                     ))}
                                   </SelectContent>
                                 </Select>
-=======
                               <td key={`${criteria}-${subject}`} className="p-4 border border-gray-300 text-center align-middle">
                                 <div className="flex justify-center items-center">
                                   <Select
@@ -516,7 +508,7 @@ const StudentView = () => {
                                     </SelectContent>
                                   </Select>
                                 </div>
->>>>>>> f7b5e7455f9e1b03e636b045e12efb15658db493
+
                               </td>
                             ))}
                           </tr>
@@ -526,16 +518,16 @@ const StudentView = () => {
                           <td className="sticky left-0 bg-blue-100 p-4 text-sm font-bold text-gray-900 border border-gray-300 align-middle">
                             Your Average Rating
                           </td>
-<<<<<<< HEAD
+
                           {formData?.subjects.map((subject) => (
                             <td
                               key={`avg-${subject}`}
                               className="p-3 border border-gray-300 text-center"
                             >
-=======
+
                           {formData?.subjects.map(subject => (
                             <td key={`avg-${subject}`} className="p-4 border border-gray-300 text-center align-middle">
->>>>>>> f7b5e7455f9e1b03e636b045e12efb15658db493
+
                               <span className="text-lg font-bold text-blue-600">
                                 {calculateAverage(subject)}
                               </span>
@@ -606,7 +598,7 @@ const StudentView = () => {
           </CardContent>
         </Card>
 
-<<<<<<< HEAD
+
         {/* Footer */}
         <footer className="mt-16 pt-8 border-t border-gray-200 bg-white rounded-lg shadow-sm">
           <div className="max-w-4xl mx-auto px-6">
@@ -723,10 +715,10 @@ const StudentView = () => {
             </div>
           </div>
         </footer>
-=======
+
         
         
->>>>>>> f7b5e7455f9e1b03e636b045e12efb15658db493
+
       </div>
 
       {/* Footer */}
