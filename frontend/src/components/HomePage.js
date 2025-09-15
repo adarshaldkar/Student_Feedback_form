@@ -22,7 +22,7 @@ import {
 
 const BACKEND_URL =
   process.env.REACT_APP_BACKEND_URL ||
-  "https://students-feedback-system-3.onrender.com";
+  "http://localhost:8001";
 const API = `${BACKEND_URL}/api`;
 
 const HomePage = () => {
