@@ -3,8 +3,11 @@ import axios from 'axios';
 
 const AuthContext = createContext();
 
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || 'https://students-feedback-system-3.onrender.com';
+// Force localhost for development
+const BACKEND_URL = 'http://localhost:8001';
 const API = `${BACKEND_URL}/api`;
+console.log('AuthContext - Backend URL:', BACKEND_URL);
+console.log('AuthContext - API base:', API);
 
 export const useAuth = () => {
   const context = useContext(AuthContext);

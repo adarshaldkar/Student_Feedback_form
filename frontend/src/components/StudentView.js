@@ -1,26 +1,28 @@
-import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import * as XLSX from 'xlsx';
-import { ratingScale } from '../data/mock';
-import { Button } from './ui/button';
-import { Input } from './ui/input';
-import { Label } from './ui/label';
-import { Textarea } from './ui/textarea';
+import React, { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import axios from "axios";
+import * as XLSX from "xlsx";
+import { ratingScale } from "../data/mock";
+import { Button } from "./ui/button";
+import { Input } from "./ui/input";
+import { Label } from "./ui/label";
+import { Textarea } from "./ui/textarea";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from './ui/select';
-import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
-import { Alert, AlertDescription } from './ui/alert';
-import { Loader2, FileDown, Phone, Users, Linkedin, Heart } from 'lucide-react';
-import { useToast } from '../hooks/use-toast';
-import Footer from './Footer';
+} from "./ui/select";
+import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
+import { Alert, AlertDescription } from "./ui/alert";
+import { Loader2, FileDown, Phone, Users, Linkedin, Heart } from "lucide-react";
+import { useToast } from "../hooks/use-toast";
+import Footer from "./Footer";
 
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || 'https://students-feedback-system-3.onrender.com';
+const BACKEND_URL =
+  process.env.REACT_APP_BACKEND_URL ||
+  "http://localhost:8001";
 const API = `${BACKEND_URL}/api`;
 
 const StudentView = () => {
@@ -30,17 +32,17 @@ const StudentView = () => {
   const [formData, setFormData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
-  const [error, setError] = useState('');
-  const [success, setSuccess] = useState('');
-  const [studentName, setStudentName] = useState('');
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+  const [studentName, setStudentName] = useState("");
   const [ratings, setRatings] = useState({});
-  const [comments, setComments] = useState('');
+  const [comments, setComments] = useState("");
 
   useEffect(() => {
     if (formId) {
       fetchFormData();
     } else {
-      setError('No form selected. Please use a valid form link.');
+      setError("No form selected. Please use a valid form link.");
       setLoading(false);
     }
   }, [formId]);
@@ -49,9 +51,9 @@ const StudentView = () => {
     if (formData) {
       // Initialize ratings matrix with default values
       const initialRatings = {};
-      formData.subjects.forEach(subject => {
+      formData.subjects.forEach((subject) => {
         initialRatings[subject] = {};
-        formData.evaluation_criteria.forEach(criteria => {
+        formData.evaluation_criteria.forEach((criteria) => {
           initialRatings[subject][criteria] = 5; // Default to 5 as shown in UI
         });
       });
@@ -66,13 +68,15 @@ const StudentView = () => {
       const response = await axios.get(`${API}/forms/${formId}`);
       console.log('Form data received:', response.data);
       setFormData(response.data);
-      setError('');
+      setError("");
     } catch (error) {
-      console.error('Failed to fetch form data:', error);
+      console.error("Failed to fetch form data:", error);
       if (error.response?.status === 404) {
-        setError('Feedback form not found. The form may have been removed or the link is invalid.');
+        setError(
+          "Feedback form not found. The form may have been removed or the link is invalid."
+        );
       } else {
-        setError('Failed to load feedback form. Please try again.');
+        setError("Failed to load feedback form. Please try again.");
       }
     } finally {
       setLoading(false);
@@ -80,12 +84,12 @@ const StudentView = () => {
   };
 
   const handleRatingChange = (subject, criteria, value) => {
-    setRatings(prev => ({
+    setRatings((prev) => ({
       ...prev,
       [subject]: {
         ...prev[subject],
-        [criteria]: parseInt(value)
-      }
+        [criteria]: parseInt(value),
+      },
     }));
   };
 
@@ -110,7 +114,7 @@ const StudentView = () => {
     }
     
     setSubmitting(true);
-    setError('');
+    setError("");
 
     try {
       // Generate a unique student_id based on name and timestamp
@@ -125,7 +129,7 @@ const StudentView = () => {
         student_id: generateStudentId(),
         student_name: studentName.trim() || null,
         ratings,
-        comments: comments.trim() || null
+        comments: comments.trim() || null,
       };
 
       console.log('Submitting feedback data:', feedbackData);
@@ -140,26 +144,28 @@ const StudentView = () => {
         description: "Feedback submitted successfully!",
         variant: "default",
       });
-      
+
       // Reset form
       setStudentName('');
       setComments('');
       setSuccess(''); // Clear any existing success message
       const initialRatings = {};
-      formData.subjects.forEach(subject => {
+      formData.subjects.forEach((subject) => {
         initialRatings[subject] = {};
-        formData.evaluation_criteria.forEach(criteria => {
+        formData.evaluation_criteria.forEach((criteria) => {
           initialRatings[subject][criteria] = 5;
         });
       });
       setRatings(initialRatings);
-
     } catch (error) {
-      console.error('Failed to submit feedback:', error);
+      console.error("Failed to submit feedback:", error);
       if (error.response?.status === 400) {
-        setError(error.response.data.detail || 'You have already submitted feedback for this form.');
+        setError(
+          error.response.data.detail ||
+            "You have already submitted feedback for this form."
+        );
       } else {
-        setError('Failed to submit feedback. Please try again.');
+        setError("Failed to submit feedback. Please try again.");
       }
     } finally {
       setSubmitting(false);
@@ -168,15 +174,24 @@ const StudentView = () => {
 
   const exportToExcel = (feedbackData) => {
     const workbook = XLSX.utils.book_new();
-    
+
     // Calculate averages for export
     const averages = {};
-    formData.subjects.forEach(subject => {
+    formData.subjects.forEach((subject) => {
       averages[subject] = calculateAverage(subject);
     });
-    
+
     // Create main feedback sheet
     const worksheetData = [
+      ["Student ID", feedbackData.student_id],
+      ["Student Name", feedbackData.student_name || "Not provided"],
+      ["Form", formData.title],
+      ["Year", formData.year],
+      ["Section", formData.section],
+      ["Department", formData.department],
+      ["Submitted On", new Date().toLocaleString()],
+      [""],
+      ["Evaluation Criteria", ...formData.subjects],
       ['Student Name', feedbackData.student_name || 'Not provided'],
       ['Form', formData.title],
       ['Year', formData.year],
@@ -187,28 +202,28 @@ const StudentView = () => {
       ['Evaluation Criteria', ...formData.subjects],
     ];
 
-    formData.evaluation_criteria.forEach(criteria => {
+    formData.evaluation_criteria.forEach((criteria) => {
       const row = [criteria];
-      formData.subjects.forEach(subject => {
+      formData.subjects.forEach((subject) => {
         row.push(ratings[subject][criteria]);
       });
       worksheetData.push(row);
     });
 
     // Add averages row
-    const averageRow = ['Average Rating'];
-    formData.subjects.forEach(subject => {
+    const averageRow = ["Average Rating"];
+    formData.subjects.forEach((subject) => {
       averageRow.push(averages[subject]);
     });
-    worksheetData.push([''], averageRow);
+    worksheetData.push([""], averageRow);
 
     // Add comments
     if (comments.trim()) {
-      worksheetData.push([''], ['Comments', comments]);
+      worksheetData.push([""], ["Comments", comments]);
     }
 
     const worksheet = XLSX.utils.aoa_to_sheet(worksheetData);
-    XLSX.utils.book_append_sheet(workbook, worksheet, 'Feedback');
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Feedback");
 
     // // Download file
     // const fileName = `Feedback_${formData.year}_${formData.department}_${formData.section}_${feedbackData.student_name || 'Anonymous'}.xlsx`;
@@ -216,8 +231,8 @@ const StudentView = () => {
   };
 
   const getRatingColor = (value) => {
-    const scale = ratingScale.find(s => s.value === value);
-    return scale ? scale.color : 'bg-gray-500';
+    const scale = ratingScale.find((s) => s.value === value);
+    return scale ? scale.color : "bg-gray-500";
   };
 
   if (loading) {
@@ -240,7 +255,7 @@ const StudentView = () => {
               <AlertDescription>{error}</AlertDescription>
             </Alert>
             <div className="mt-4 text-center">
-              <Button onClick={() => navigate('/')} variant="outline">
+              <Button onClick={() => navigate("/")} variant="outline">
                 Go to Homepage
               </Button>
             </div>
@@ -251,19 +266,31 @@ const StudentView = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-4 sm:py-6 lg:py-8" style={{width: '100%', maxWidth: '100%', overflowX: 'hidden'}}>
-      <div className="max-w-[1400px] mx-auto px-3 sm:px-4 lg:px-6 xl:px-8 container-responsive" style={{width: '100%', maxWidth: '100%'}}>
-        <Card className="mb-6 sm:mb-8" style={{width: '100%', maxWidth: '100%'}}>
+    <div
+      className="min-h-screen bg-gray-50 py-4 sm:py-6 lg:py-8"
+      style={{ width: "100%", maxWidth: "100%", overflowX: "hidden" }}
+    >
+      <div
+        className="max-w-[1400px] mx-auto px-3 sm:px-4 lg:px-6 xl:px-8 container-responsive"
+        style={{ width: "100%", maxWidth: "100%" }}
+      >
+        <Card
+          className="mb-6 sm:mb-8"
+          style={{ width: "100%", maxWidth: "100%" }}
+        >
           <CardHeader className="pb-3 sm:pb-4">
             <CardTitle className="text-xl sm:text-2xl font-bold text-gray-900">
               Teacher Feedback Collection System
             </CardTitle>
             <div className="space-y-1 sm:space-y-2">
-              <p className="text-sm sm:text-base text-gray-600">Submit your feedback for all subjects</p>
+              <p className="text-sm sm:text-base text-gray-600">
+                Submit your feedback for all subjects
+              </p>
               {formData && (
                 <div className="bg-blue-50 p-2 sm:p-3 rounded-lg">
                   <p className="text-sm sm:text-base text-blue-900 font-medium">
-                    {formData.title} - {formData.year} {formData.department} - Section {formData.section}
+                    {formData.title} - {formData.year} {formData.department} -
+                    Section {formData.section}
                   </p>
                 </div>
               )}
@@ -276,9 +303,13 @@ const StudentView = () => {
               </Alert>
             )}
 
+
             <div className="mb-4 sm:mb-6">
               <div>
-                <Label htmlFor="studentName" className="text-sm font-medium text-gray-700 mb-2 block">
+                <Label
+                  htmlFor="studentName"
+                  className="text-sm font-medium text-gray-700 mb-2 block"
+                >
                   Student Name (Required)*
                 </Label>
                 <Input
@@ -306,22 +337,36 @@ const StudentView = () => {
                     </CardHeader>
                     <CardContent className="space-y-3">
                       {formData.evaluation_criteria.map((criteria) => (
-                        <div key={`${subject}-${criteria}`} className="flex items-center justify-between p-2 border border-gray-200 rounded">
+                        <div
+                          key={`${subject}-${criteria}`}
+                          className="flex items-center justify-between p-2 border border-gray-200 rounded"
+                        >
                           <span className="text-sm font-medium text-gray-900 flex-1">
                             {criteria}
                           </span>
                           <div className="ml-3">
                             <Select
-                              value={ratings[subject]?.[criteria]?.toString() || '5'}
-                              onValueChange={(value) => handleRatingChange(subject, criteria, value)}
+                              value={
+                                ratings[subject]?.[criteria]?.toString() || "5"
+                              }
+                              onValueChange={(value) =>
+                                handleRatingChange(subject, criteria, value)
+                              }
                               disabled={submitting}
                             >
-                              <SelectTrigger className={`w-16 h-8 text-white font-medium ${getRatingColor(parseInt(ratings[subject]?.[criteria] || 5))}`}>
+                              <SelectTrigger
+                                className={`w-16 h-8 text-white font-medium ${getRatingColor(
+                                  parseInt(ratings[subject]?.[criteria] || 5)
+                                )}`}
+                              >
                                 <SelectValue />
                               </SelectTrigger>
                               <SelectContent className="z-50">
-                                {ratingScale.map(scale => (
-                                  <SelectItem key={scale.value} value={scale.value.toString()}>
+                                {ratingScale.map((scale) => (
+                                  <SelectItem
+                                    key={scale.value}
+                                    value={scale.value.toString()}
+                                  >
                                     {scale.value} - {scale.label}
                                   </SelectItem>
                                 ))}
@@ -346,7 +391,7 @@ const StudentView = () => {
                 ))}
               </div>
 
-            {/* Desktop View - Table Layout */}
+              {/* Desktop View - Table Layout */}
               <div className="hidden lg:block" style={{width: '100%', overflowX: 'auto'}}>
                 <div className="overflow-x-auto table-responsive -mx-3 sm:-mx-4 lg:-mx-6 xl:-mx-8 px-3 sm:px-4 lg:px-6 xl:px-8" style={{WebkitOverflowScrolling: 'touch'}}>
                   <div className="min-w-[1200px]" style={{width: '100%'}}>
@@ -381,7 +426,7 @@ const StudentView = () => {
                                       <SelectValue />
                                     </SelectTrigger>
                                     <SelectContent className="z-50">
-                                      {ratingScale.map(scale => (
+                                      {ratingScale.map((scale) => (
                                         <SelectItem key={scale.value} value={scale.value.toString()}>
                                           {scale.value} - {scale.label}
                                         </SelectItem>
@@ -398,7 +443,8 @@ const StudentView = () => {
                           <td className="sticky left-0 bg-blue-100 p-4 text-sm font-bold text-gray-900 border border-gray-300 align-middle">
                             Your Average Rating
                           </td>
-                          {formData?.subjects.map(subject => (
+
+                          {formData?.subjects.map((subject) => (
                             <td key={`avg-${subject}`} className="p-4 border border-gray-300 text-center align-middle">
                               <span className="text-lg font-bold text-blue-600">
                                 {calculateAverage(subject)}
@@ -415,7 +461,10 @@ const StudentView = () => {
 
             {/* Comments Section */}
             <div className="mb-8">
-              <Label htmlFor="comments" className="text-sm font-medium text-gray-700 mb-2 block">
+              <Label
+                htmlFor="comments"
+                className="text-sm font-medium text-gray-700 mb-2 block"
+              >
                 Additional Comments (Required)*:
               </Label>
               <Textarea
@@ -427,10 +476,10 @@ const StudentView = () => {
                 disabled={submitting}
               />
             </div>
-             {/* Submit Button */}
+            {/* Submit Button */}
             <div className="text-center mb-8 mt-4">
-              <Button 
-                onClick={handleSubmit} 
+              <Button
+                onClick={handleSubmit}
                 className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-2"
                 disabled={submitting}
               >
@@ -450,9 +499,11 @@ const StudentView = () => {
 
             {/* Rating Scale Legend */}
             <div className="bg-gray-100 p-4 rounded-lg">
-              <h4 className="text-sm font-medium text-gray-700 mb-2">Rating Scale:</h4>
+              <h4 className="text-sm font-medium text-gray-700 mb-2">
+                Rating Scale:
+              </h4>
               <div className="flex flex-wrap gap-4">
-                {ratingScale.map(scale => (
+                {ratingScale.map((scale) => (
                   <div key={scale.value} className="flex items-center gap-2">
                     <div className={`w-4 h-4 rounded ${scale.color}`}></div>
                     <span className="text-sm text-gray-700">
@@ -462,17 +513,133 @@ const StudentView = () => {
                 ))}
               </div>
             </div>
-
-           
           </CardContent>
         </Card>
 
+
+        {/* Footer */}
+        <footer className="mt-16 pt-8 border-t border-gray-200 bg-white rounded-lg shadow-sm">
+          <div className="max-w-4xl mx-auto px-6">
+            {/* Company Logo and Info */}
+            <div className="text-center mb-8">
+              <div className="mb-6">
+                <img
+                  src="/Company_logo.png"
+                  alt="Company Logo"
+                  className="h-32 w-auto mx-auto mb-4"
+                  onError={(e) => {
+                    e.target.style.display = "none";
+                    e.target.nextSibling.style.display = "block";
+                  }}
+                />
+              </div>
+
+              <p className="text-sm text-gray-600 mb-4 max-w-2xl mx-auto">
+                Secure • Easy to use • Comprehensive feedback collection
+                platform
+              </p>
+              <div className="text-sm text-gray-600 mb-6">
+                <p className="mb-2 flex items-center justify-center gap-2">
+                  <Phone className="h-4 w-4 text-blue-600" />
+                  Contact Support:{" "}
+                  <a
+                    href="tel:+918248622746"
+                    className="text-blue-600 hover:text-blue-800 font-medium transition-colors"
+                  >
+                    +91 82486 22746
+                  </a>
+                </p>
+                <p className="text-xs text-gray-500">
+                  Available Monday to Friday, 9:00 AM - 6:00 PM
+                </p>
+              </div>
+              <div className="text-sm text-gray-600 mb-6">
+                <p className="mb-2 flex items-center justify-center gap-2">
+                  <Phone className="h-4 w-4 text-blue-600" />
+                  {/* Contact Support: <a href="tel:+918248622746" className="text-blue-600 hover:text-blue-800 font-medium transition-colors">+91 82486 22746</a> */}
+                  Contact Support:{" "}
+                  <a
+                    href="tel:+91 7010664806"
+                    className="text-blue-600 hover:text-blue-800 font-medium transition-colors"
+                  >
+                    +91 7010664806
+                  </a>
+                </p>
+                <p className="text-xs text-gray-500">
+                  Available Monday to Friday, 9:00 AM - 6:00 PM
+                </p>
+              </div>
+            </div>
+
+            {/* Developers Section */}
+            <div className="grid grid-cols-2 gap-3 sm:gap-4 md:gap-6 mb-8">
+              <div className="text-center p-4 bg-gray-50 rounded-lg">
+                <div className="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-3">
+                  <Users className="h-6 w-6 text-white" />
+                </div>
+                <h4 className="font-semibold text-gray-900 mb-2">
+                  Adarsh Patel
+                </h4>
+                <p className="text-sm text-gray-600 mb-3">
+                  Full Stack Developer
+                </p>
+                <a
+                  href="https://www.linkedin.com/in/adarsh-patel14/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-800 transition-colors"
+                >
+                  <Linkedin className="h-4 w-4" />
+                  Connect on LinkedIn
+                </a>
+              </div>
+
+              <div className="text-center p-4 bg-gray-50 rounded-lg">
+                <div className="w-12 h-12 bg-green-600 rounded-full flex items-center justify-center mx-auto mb-3">
+                  <Users className="h-6 w-6 text-white" />
+                </div>
+                <h4 className="font-semibold text-gray-900 mb-2">
+                  Praveen Kumar
+                </h4>
+                <p className="text-sm text-gray-600 mb-3">
+                  Full Stack Developer
+                </p>
+                <a
+                  href="https://www.linkedin.com/in/praveenkumar-fullstackdeveloper/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-green-600 hover:text-green-800 transition-colors"
+                >
+                  <Linkedin className="h-4 w-4" />
+                  Connect on LinkedIn
+                </a>
+              </div>
+            </div>
+
+            {/* Bottom Footer */}
+            <div className="border-t border-gray-200 pt-6 pb-6">
+              <div className="flex flex-col md:flex-row justify-between items-center text-sm text-gray-500">
+                <div className="mb-4 md:mb-0">
+                  <p className="flex items-center gap-1">
+                    Made with{" "}
+                    <Heart className="h-4 w-4 text-red-500 fill-current" /> by
+                    our development team
+                  </p>
+                </div>
+                <div className="flex items-center gap-4">
+                  <span>© {new Date().getFullYear()} All rights reserved</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </footer>
+
         
         
+
       </div>
-      
+
       {/* Footer */}
-      <Footer />
     </div>
   );
 };
