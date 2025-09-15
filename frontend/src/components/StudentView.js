@@ -640,6 +640,7 @@ const StudentView = () => {
       </div>
 
       {/* Footer */}
+      <Footer />
     </div>
   );
 };
