@@ -183,7 +183,6 @@ const StudentView = () => {
 
     // Create main feedback sheet
     const worksheetData = [
-<<<<<<< HEAD
       ["Student ID", feedbackData.student_id],
       ["Student Name", feedbackData.student_name || "Not provided"],
       ["Form", formData.title],
@@ -193,7 +192,6 @@ const StudentView = () => {
       ["Submitted On", new Date().toLocaleString()],
       [""],
       ["Evaluation Criteria", ...formData.subjects],
-=======
       ['Student Name', feedbackData.student_name || 'Not provided'],
       ['Form', formData.title],
       ['Year', formData.year],
@@ -202,7 +200,6 @@ const StudentView = () => {
       ['Submitted On', new Date().toLocaleString()],
       [''],
       ['Evaluation Criteria', ...formData.subjects],
->>>>>>> f7b5e7455f9e1b03e636b045e12efb15658db493
     ];
 
     formData.evaluation_criteria.forEach((criteria) => {
