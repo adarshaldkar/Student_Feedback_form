@@ -14,7 +14,6 @@ import FileSharing from './FileSharing';
 
 import { Plus, Trash2, Download, Upload, Link, Copy, Loader2, LogOut, Edit, AlertTriangle, FileText, RefreshCw, Sparkles, Save, BookOpen, X, Settings, PlusCircle, Share } from 'lucide-react';
 import { toast } from 'sonner';
-import Footer from './Footer';
 
 
 // Force localhost for development
@@ -217,7 +216,7 @@ const AdminView = () => {
     return Object.values(errors).every(error => error === '');
   };
 
-  // Clear field error
+  // Clear field error-
   const clearFieldError = (fieldName, isEdit = false) => {
     if (isEdit) {
       setEditFieldErrors(prev => ({ ...prev, [fieldName]: '' }));
